@@ -1,0 +1,2401 @@
+
+ /----------------------------------------------------------------------------\
+ |  yosys -- Yosys Open SYnthesis Suite                                       |
+ |  Copyright (C) 2012 - 2025  Claire Xenia Wolf <claire@yosyshq.com>         |
+ |  Distributed under an ISC-like license, type "license" to see terms        |
+ \----------------------------------------------------------------------------/
+ Yosys 0.57+260 (git sha1 f7120e9c2, g++ 13.3.0-6ubuntu2~24.04 -fPIC -O3)
+[TCL: yosys -import] Command name collision: found pre-existing command `cd' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `eval' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `exec' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `read' -> skip.
+[TCL: yosys -import] Command name collision: found pre-existing command `trace' -> skip.
+
+1. Executing Verilog-2005 frontend: ../rtl/ff_2_sync.v
+Parsing SystemVerilog input from `../rtl/ff_2_sync.v' to AST representation.
+verilog frontend filename ../rtl/ff_2_sync.v
+Generating RTLIL representation for module `\ff_2_sync'.
+Successfully finished Verilog frontend.
+
+2. Executing Verilog-2005 frontend: ../rtl/mem.v
+Parsing SystemVerilog input from `../rtl/mem.v' to AST representation.
+verilog frontend filename ../rtl/mem.v
+Generating RTLIL representation for module `\mem'.
+Successfully finished Verilog frontend.
+
+3. Executing Verilog-2005 frontend: ../rtl/rd_ptr.v
+Parsing SystemVerilog input from `../rtl/rd_ptr.v' to AST representation.
+verilog frontend filename ../rtl/rd_ptr.v
+Generating RTLIL representation for module `\rd_ptr'.
+Successfully finished Verilog frontend.
+
+4. Executing Verilog-2005 frontend: ../rtl/wtr_ptr.v
+Parsing SystemVerilog input from `../rtl/wtr_ptr.v' to AST representation.
+verilog frontend filename ../rtl/wtr_ptr.v
+Generating RTLIL representation for module `\wtr_ptr'.
+Successfully finished Verilog frontend.
+
+5. Executing Verilog-2005 frontend: ../rtl/async_fifo.v
+Parsing SystemVerilog input from `../rtl/async_fifo.v' to AST representation.
+verilog frontend filename ../rtl/async_fifo.v
+Generating RTLIL representation for module `\async_fifo'.
+Successfully finished Verilog frontend.
+
+6. Executing HIERARCHY pass (managing design hierarchy).
+
+6.1. Analyzing design hierarchy..
+Top module:  \async_fifo
+Used module:     \ff_2_sync
+Used module:     \rd_ptr
+Used module:     \wtr_ptr
+Used module:     \mem
+Parameter \SIZE = 3
+
+6.2. Executing AST frontend in derive mode using pre-parsed AST for module `\ff_2_sync'.
+Parameter \SIZE = 3
+Generating RTLIL representation for module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Parameter \SIZE = 3
+Found cached RTLIL representation for module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Parameter \SIZE = 3
+
+6.3. Executing AST frontend in derive mode using pre-parsed AST for module `\rd_ptr'.
+Parameter \SIZE = 3
+Generating RTLIL representation for module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Parameter \SIZE = 3
+
+6.4. Executing AST frontend in derive mode using pre-parsed AST for module `\wtr_ptr'.
+Parameter \SIZE = 3
+Generating RTLIL representation for module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Parameter \SIZE_FIFO = 8
+Parameter \DATA_SIZE = 32
+
+6.5. Executing AST frontend in derive mode using pre-parsed AST for module `\mem'.
+Parameter \SIZE_FIFO = 8
+Parameter \DATA_SIZE = 32
+Generating RTLIL representation for module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+
+6.6. Analyzing design hierarchy..
+Top module:  \async_fifo
+Used module:     $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+
+6.7. Analyzing design hierarchy..
+Top module:  \async_fifo
+Used module:     $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+Removing unused module `\wtr_ptr'.
+Removing unused module `\rd_ptr'.
+Removing unused module `\mem'.
+Removing unused module `\ff_2_sync'.
+Removed 4 unused modules.
+
+7. Executing Liberty frontend: /usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+Imported 428 cell types from liberty file.
+
+8. Executing SYNTH pass.
+
+8.1. Executing HIERARCHY pass (managing design hierarchy).
+
+8.1.1. Analyzing design hierarchy..
+Top module:  \async_fifo
+Used module:     $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+
+8.1.2. Analyzing design hierarchy..
+Top module:  \async_fifo
+Used module:     $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+Removed 0 unused modules.
+
+8.2. Executing PROC pass (convert processes to netlists).
+
+8.2.1. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Cleaned up 0 empty switches.
+
+8.2.2. Executing PROC_RMDEAD pass (remove dead branches from decision trees).
+Marked 2 switch rules as full_case in process $proc$../rtl/mem.v:15$116 in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Marked 1 switch rules as full_case in process $proc$../rtl/wtr_ptr.v:15$96 in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Marked 1 switch rules as full_case in process $proc$../rtl/rd_ptr.v:15$86 in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Marked 1 switch rules as full_case in process $proc$../rtl/ff_2_sync.v:10$84 in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Removed a total of 0 dead cases.
+
+8.2.3. Executing PROC_PRUNE pass (remove redundant assignments in processes).
+Removed 2 redundant assignments.
+Promoted 20 assignments to connections.
+
+8.2.4. Executing PROC_INIT pass (extract init attributes).
+
+8.2.5. Executing PROC_ARST pass (detect async resets in processes).
+
+8.2.6. Executing PROC_ROM pass (convert switches to ROMs).
+Converted 0 switches.
+<suppressed ~7 debug messages>
+
+8.2.7. Executing PROC_MUX pass (convert decision trees to multiplexers).
+Creating decoders for process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+     1/15: $2$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$146
+     2/15: $2$memwr$\mem$../rtl/mem.v:23$115_DATA[31:0]$145
+     3/15: $2$memwr$\mem$../rtl/mem.v:23$115_ADDR[2:0]$144
+     4/15: $1$fordecl_block$3.i[31:0]$130
+     5/15: $1$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$138
+     6/15: $1$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$137
+     7/15: $1$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$136
+     8/15: $1$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$135
+     9/15: $1$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$134
+    10/15: $1$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$133
+    11/15: $1$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$132
+    12/15: $1$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$131
+    13/15: $1$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$141
+    14/15: $1$memwr$\mem$../rtl/mem.v:23$115_DATA[31:0]$140
+    15/15: $1$memwr$\mem$../rtl/mem.v:23$115_ADDR[2:0]$139
+Creating decoders for process `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/wtr_ptr.v:28$100'.
+Creating decoders for process `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/wtr_ptr.v:15$96'.
+     1/2: $0\ptr_g[2:0]
+     2/2: $0\ptr[2:0]
+Creating decoders for process `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/rd_ptr.v:28$90'.
+Creating decoders for process `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/rd_ptr.v:15$86'.
+     1/2: $0\ptr_g[2:0]
+     2/2: $0\ptr[2:0]
+Creating decoders for process `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/ff_2_sync.v:10$84'.
+     1/2: $0\ff_1[2:0]
+     2/2: $0\dout[2:0]
+
+8.2.8. Executing PROC_DLATCH pass (convert process syncs to latches).
+No latch inferred for signal `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.\ptr_g_next' from process `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/wtr_ptr.v:28$100'.
+No latch inferred for signal `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$fordecl_block$66.i' from process `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/wtr_ptr.v:28$100'.
+No latch inferred for signal `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.\ptr_g_next' from process `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/rd_ptr.v:28$90'.
+No latch inferred for signal `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$fordecl_block$49.i' from process `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/rd_ptr.v:28$90'.
+
+8.2.9. Executing PROC_DFF pass (convert process syncs to FFs).
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$fordecl_block$3.i' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$231' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:18$107_EN' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$232' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:18$108_EN' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$233' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:18$109_EN' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$234' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:18$110_EN' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$235' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:18$111_EN' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$236' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:18$112_EN' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$237' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:18$113_EN' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$238' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:18$114_EN' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$239' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:23$115_ADDR' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$240' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:23$115_DATA' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$241' with positive edge clock.
+Creating register for signal `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$memwr$\mem$../rtl/mem.v:23$115_EN' using process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+  created $dff cell `$procdff$242' with positive edge clock.
+Creating register for signal `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.\ptr' using process `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/wtr_ptr.v:15$96'.
+  created $dff cell `$procdff$243' with positive edge clock.
+Creating register for signal `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.\ptr_g' using process `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/wtr_ptr.v:15$96'.
+  created $dff cell `$procdff$244' with positive edge clock.
+Creating register for signal `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.\ptr' using process `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/rd_ptr.v:15$86'.
+  created $dff cell `$procdff$245' with positive edge clock.
+Creating register for signal `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.\ptr_g' using process `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/rd_ptr.v:15$86'.
+  created $dff cell `$procdff$246' with positive edge clock.
+Creating register for signal `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.\dout' using process `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/ff_2_sync.v:10$84'.
+  created $dff cell `$procdff$247' with positive edge clock.
+Creating register for signal `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.\ff_1' using process `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/ff_2_sync.v:10$84'.
+  created $dff cell `$procdff$248' with positive edge clock.
+
+8.2.10. Executing PROC_MEMWR pass (convert process memory writes to cells).
+
+8.2.11. Executing PROC_CLEAN pass (remove empty switches from decision trees).
+Found and cleaned up 2 empty switches in `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+Removing empty process `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$proc$../rtl/mem.v:15$116'.
+Removing empty process `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/wtr_ptr.v:28$100'.
+Found and cleaned up 2 empty switches in `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/wtr_ptr.v:15$96'.
+Removing empty process `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/wtr_ptr.v:15$96'.
+Removing empty process `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/rd_ptr.v:28$90'.
+Found and cleaned up 2 empty switches in `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/rd_ptr.v:15$86'.
+Removing empty process `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/rd_ptr.v:15$86'.
+Found and cleaned up 1 empty switch in `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/ff_2_sync.v:10$84'.
+Removing empty process `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.$proc$../rtl/ff_2_sync.v:10$84'.
+Cleaned up 7 empty switches.
+
+8.2.12. Executing OPT_EXPR pass (perform const folding).
+Optimizing module async_fifo.
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+<suppressed ~15 debug messages>
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+<suppressed ~2 debug messages>
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+<suppressed ~2 debug messages>
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+<suppressed ~2 debug messages>
+
+8.3. Executing OPT_EXPR pass (perform const folding).
+Optimizing module async_fifo.
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+
+8.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module \async_fifo..
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Removed 17 unused cells and 91 unused wires.
+<suppressed ~21 debug messages>
+
+8.5. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem...
+Checking module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011...
+Checking module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011...
+Checking module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011...
+Checking module async_fifo...
+Found and reported 0 problems.
+
+8.6. Executing OPT pass (performing simple optimizations).
+
+8.6.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.6.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.6.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+    dead port 2/2 on $mux $procmux$155.
+    dead port 2/2 on $mux $procmux$161.
+    dead port 2/2 on $mux $procmux$167.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 3 multiplexer ports.
+<suppressed ~46 debug messages>
+
+8.6.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+    Consolidated identical input bits for $mux cell $procmux$152:
+      Old ports: A=0, B=32'11111111111111111111111111111111, Y=$procmux$152_Y
+      New ports: A=1'0, B=1'1, Y=$procmux$152_Y [0]
+      New connections: $procmux$152_Y [31:1] = { $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] $procmux$152_Y [0] }
+    Consolidated identical input bits for $mux cell $procmux$173:
+      Old ports: A=32'11111111111111111111111111111111, B=0, Y=$0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125
+      New ports: A=1'1, B=1'0, Y=$0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0]
+      New connections: $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [31:1] = { $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] $0$memwr$\mem$../rtl/mem.v:18$114_EN[31:0]$125 [0] }
+    Consolidated identical input bits for $mux cell $procmux$176:
+      Old ports: A=32'11111111111111111111111111111111, B=0, Y=$0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124
+      New ports: A=1'1, B=1'0, Y=$0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0]
+      New connections: $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [31:1] = { $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] $0$memwr$\mem$../rtl/mem.v:18$113_EN[31:0]$124 [0] }
+    Consolidated identical input bits for $mux cell $procmux$179:
+      Old ports: A=32'11111111111111111111111111111111, B=0, Y=$0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123
+      New ports: A=1'1, B=1'0, Y=$0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0]
+      New connections: $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [31:1] = { $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] $0$memwr$\mem$../rtl/mem.v:18$112_EN[31:0]$123 [0] }
+    Consolidated identical input bits for $mux cell $procmux$182:
+      Old ports: A=32'11111111111111111111111111111111, B=0, Y=$0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122
+      New ports: A=1'1, B=1'0, Y=$0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0]
+      New connections: $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [31:1] = { $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] $0$memwr$\mem$../rtl/mem.v:18$111_EN[31:0]$122 [0] }
+    Consolidated identical input bits for $mux cell $procmux$185:
+      Old ports: A=32'11111111111111111111111111111111, B=0, Y=$0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121
+      New ports: A=1'1, B=1'0, Y=$0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0]
+      New connections: $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [31:1] = { $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] $0$memwr$\mem$../rtl/mem.v:18$110_EN[31:0]$121 [0] }
+    Consolidated identical input bits for $mux cell $procmux$188:
+      Old ports: A=32'11111111111111111111111111111111, B=0, Y=$0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120
+      New ports: A=1'1, B=1'0, Y=$0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0]
+      New connections: $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [31:1] = { $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] $0$memwr$\mem$../rtl/mem.v:18$109_EN[31:0]$120 [0] }
+    Consolidated identical input bits for $mux cell $procmux$191:
+      Old ports: A=32'11111111111111111111111111111111, B=0, Y=$0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119
+      New ports: A=1'1, B=1'0, Y=$0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0]
+      New connections: $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [31:1] = { $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] $0$memwr$\mem$../rtl/mem.v:18$108_EN[31:0]$119 [0] }
+    Consolidated identical input bits for $mux cell $procmux$194:
+      Old ports: A=32'11111111111111111111111111111111, B=0, Y=$0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118
+      New ports: A=1'1, B=1'0, Y=$0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0]
+      New connections: $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [31:1] = { $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] $0$memwr$\mem$../rtl/mem.v:18$107_EN[31:0]$118 [0] }
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+    Consolidated identical input bits for $mux cell $procmux$197:
+      Old ports: A=0, B=$2$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$146, Y=$0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128
+      New ports: A=1'0, B=$procmux$152_Y [0], Y=$0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0]
+      New connections: $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [31:1] = { $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] $0$memwr$\mem$../rtl/mem.v:23$115_EN[31:0]$128 [0] }
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 10 changes.
+
+8.6.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+<suppressed ~21 debug messages>
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 7 cells.
+
+8.6.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.6.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+Removed 0 unused cells and 10 unused wires.
+<suppressed ~1 debug messages>
+
+8.6.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.6.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.6.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~29 debug messages>
+
+8.6.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+8.6.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.6.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.6.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+8.6.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.6.16. Finished fast OPT passes. (There is nothing left to do.)
+
+8.7. Executing FSM pass (extract and optimize FSM).
+
+8.7.1. Executing FSM_DETECT pass (finding FSMs in design).
+
+8.7.2. Executing FSM_EXTRACT pass (extracting FSM from design).
+
+8.7.3. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+8.7.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+8.7.5. Executing FSM_OPT pass (simple optimizations of FSMs).
+
+8.7.6. Executing FSM_RECODE pass (re-assigning FSM state encoding).
+
+8.7.7. Executing FSM_INFO pass (dumping all available information on FSM cells).
+
+8.7.8. Executing FSM_MAP pass (mapping FSMs to basic logic).
+
+8.8. Executing OPT pass (performing simple optimizations).
+
+8.8.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.8.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.8.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~29 debug messages>
+
+8.8.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+8.8.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.8.6. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $procdff$248 ($dff) from module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011 (D = \din, Q = \ff_1, rval = 3'000).
+Adding SRST signal on $procdff$247 ($dff) from module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011 (D = \ff_1, Q = \dout, rval = 3'000).
+Adding SRST signal on $procdff$246 ($dff) from module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011 (D = $procmux$215_Y, Q = \ptr_g, rval = 3'000).
+Adding EN signal on $auto$ff.cc:266:slice$260 ($sdff) from module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011 (D = \ptr_g_next, Q = \ptr_g).
+Adding SRST signal on $procdff$245 ($dff) from module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011 (D = $procmux$220_Y, Q = \ptr, rval = 3'000).
+Adding EN signal on $auto$ff.cc:266:slice$262 ($sdff) from module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011 (D = { \ptr_g_next [2] \ptr_next [1:0] }, Q = \ptr).
+Adding SRST signal on $procdff$244 ($dff) from module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011 (D = $procmux$205_Y, Q = \ptr_g, rval = 3'000).
+Adding EN signal on $auto$ff.cc:266:slice$264 ($sdff) from module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011 (D = \ptr_g_next, Q = \ptr_g).
+Adding SRST signal on $procdff$243 ($dff) from module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011 (D = $procmux$210_Y, Q = \ptr, rval = 3'000).
+Adding EN signal on $auto$ff.cc:266:slice$266 ($sdff) from module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011 (D = { \ptr_g_next [2] \ptr_next [1:0] }, Q = \ptr).
+
+8.8.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+Removed 10 unused cells and 10 unused wires.
+<suppressed ~13 debug messages>
+
+8.8.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.8.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.8.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~13 debug messages>
+
+8.8.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+8.8.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.8.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.8.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+8.8.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.8.16. Finished fast OPT passes. (There is nothing left to do.)
+
+8.9. Executing WREDUCE pass (reducing word size of cells).
+Removed top 29 address bits (of 32) from memory init port $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$auto$proc_memwr.cc:45:proc_memwr$249 (mem).
+Removed top 29 address bits (of 32) from memory init port $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$auto$proc_memwr.cc:45:proc_memwr$250 (mem).
+Removed top 29 address bits (of 32) from memory init port $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$auto$proc_memwr.cc:45:proc_memwr$251 (mem).
+Removed top 29 address bits (of 32) from memory init port $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$auto$proc_memwr.cc:45:proc_memwr$252 (mem).
+Removed top 29 address bits (of 32) from memory init port $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$auto$proc_memwr.cc:45:proc_memwr$253 (mem).
+Removed top 29 address bits (of 32) from memory init port $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$auto$proc_memwr.cc:45:proc_memwr$254 (mem).
+Removed top 29 address bits (of 32) from memory init port $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$auto$proc_memwr.cc:45:proc_memwr$255 (mem).
+Removed top 29 address bits (of 32) from memory init port $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.$auto$proc_memwr.cc:45:proc_memwr$256 (mem).
+Removed top 31 bits (of 32) from port B of cell $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$add$../rtl/rd_ptr.v:35$94 ($add).
+Removed top 29 bits (of 32) from port Y of cell $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.$add$../rtl/rd_ptr.v:35$94 ($add).
+Removed top 31 bits (of 32) from port B of cell $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$add$../rtl/wtr_ptr.v:35$104 ($add).
+Removed top 29 bits (of 32) from port Y of cell $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.$add$../rtl/wtr_ptr.v:35$104 ($add).
+
+8.10. Executing PEEPOPT pass (run peephole optimizers).
+
+8.11. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+Removed 0 unused cells and 2 unused wires.
+<suppressed ~2 debug messages>
+
+8.12. Executing ALUMACC pass (create $alu and $macc cells).
+Extracting $alu and $macc cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011:
+  created 0 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011:
+  creating $macc model for $add$../rtl/rd_ptr.v:35$94 ($add).
+  creating $alu model for $macc $add$../rtl/rd_ptr.v:35$94.
+  creating $alu cell for $add$../rtl/rd_ptr.v:35$94: $auto$alumacc.cc:495:replace_alu$268
+  created 1 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011:
+  creating $macc model for $add$../rtl/wtr_ptr.v:35$104 ($add).
+  creating $alu model for $macc $add$../rtl/wtr_ptr.v:35$104.
+  creating $alu cell for $add$../rtl/wtr_ptr.v:35$104: $auto$alumacc.cc:495:replace_alu$271
+  created 1 $alu and 0 $macc cells.
+Extracting $alu and $macc cells in module async_fifo:
+  created 0 $alu and 0 $macc cells.
+
+8.13. Executing SHARE pass (SAT-based resource sharing).
+
+8.14. Executing OPT pass (performing simple optimizations).
+
+8.14.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.14.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.14.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~13 debug messages>
+
+8.14.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+8.14.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.14.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.14.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+8.14.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.14.9. Finished fast OPT passes. (There is nothing left to do.)
+
+8.15. Executing MEMORY pass.
+
+8.15.1. Executing OPT_MEM pass (optimize memories).
+Performed a total of 0 transformations.
+
+8.15.2. Executing OPT_MEM_PRIORITY pass (removing unnecessary memory write priority relations).
+Performed a total of 28 transformations.
+
+8.15.3. Executing OPT_MEM_FEEDBACK pass (finding memory read-to-write feedback paths).
+  Analyzing $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem write port 0.
+  Analyzing $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem write port 1.
+  Analyzing $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem write port 2.
+  Analyzing $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem write port 3.
+  Analyzing $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem write port 4.
+  Analyzing $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem write port 5.
+  Analyzing $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem write port 6.
+  Analyzing $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem write port 7.
+  Analyzing $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem write port 8.
+
+8.15.4. Executing MEMORY_BMUX2ROM pass (converting muxes to ROMs).
+
+8.15.5. Executing MEMORY_DFF pass (merging $dff cells to $memrd).
+Checking read port `\mem'[0] in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem': no output FF found.
+Checking read port address `\mem'[0] in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem': no address FF found.
+
+8.15.6. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+8.15.7. Executing MEMORY_SHARE pass (consolidating $memrd/$memwr cells).
+Consolidating write ports of memory $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem by address:
+  Merging ports 0, 1 (address 3'000).
+  Merging ports 0, 2 (address 3'000).
+  Merging ports 0, 3 (address 3'000).
+  Merging ports 0, 4 (address 3'000).
+  Merging ports 6, 7 (address 3'110).
+Consolidating write ports of memory $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem by address:
+  Merging ports 1, 2 (address 3'101).
+Consolidating write ports of memory $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem by address:
+Consolidating write ports of memory $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.mem using sat-based resource sharing:
+
+8.15.8. Executing OPT_MEM_WIDEN pass (optimize memories where all ports are wide).
+Performed a total of 0 transformations.
+
+8.15.9. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+8.15.10. Executing MEMORY_COLLECT pass (generating $mem cells).
+
+8.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+8.17. Executing OPT pass (performing simple optimizations).
+
+8.17.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+<suppressed ~7 debug messages>
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.17.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.17.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.17.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+Removed 0 unused cells and 5 unused wires.
+<suppressed ~1 debug messages>
+
+8.17.5. Finished fast OPT passes.
+
+8.18. Executing MEMORY_MAP pass (converting memories to logic and flip-flops).
+Mapping memory \mem in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem:
+  created 8 $dff cells and 0 static cells of width 32.
+  read interface: 0 $dff and 7 $mux cells.
+  write interface: 24 write mux blocks.
+
+8.19. Executing OPT pass (performing simple optimizations).
+
+8.19.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+<suppressed ~41 debug messages>
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.19.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.19.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~33 debug messages>
+
+8.19.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+8.19.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.19.6. Executing OPT_SHARE pass.
+
+8.19.7. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.19.8. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+Removed 1 unused cells and 47 unused wires.
+<suppressed ~2 debug messages>
+
+8.19.9. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.19.10. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.19.11. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~33 debug messages>
+
+8.19.12. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+8.19.13. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.19.14. Executing OPT_SHARE pass.
+
+8.19.15. Executing OPT_DFF pass (perform DFF optimizations).
+Adding EN signal on $memory\mem[7]$290 ($dff) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = $memory\mem$wrmux[7][2][0]$y$450, Q = \mem[7]).
+Adding EN signal on $memory\mem[6]$288 ($dff) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = $memory\mem$wrmux[6][2][0]$y$436, Q = \mem[6]).
+Adding EN signal on $memory\mem[5]$286 ($dff) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = $memory\mem$wrmux[5][2][0]$y$420, Q = \mem[5]).
+Adding EN signal on $memory\mem[4]$284 ($dff) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = $memory\mem$wrmux[4][2][0]$y$406, Q = \mem[4]).
+Adding EN signal on $memory\mem[3]$282 ($dff) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = $memory\mem$wrmux[3][2][0]$y$386, Q = \mem[3]).
+Adding EN signal on $memory\mem[2]$280 ($dff) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = $memory\mem$wrmux[2][2][0]$y$372, Q = \mem[2]).
+Adding EN signal on $memory\mem[1]$278 ($dff) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = $memory\mem$wrmux[1][2][0]$y$354, Q = \mem[1]).
+Adding EN signal on $memory\mem[0]$276 ($dff) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = $memory\mem$wrmux[0][2][0]$y$338, Q = \mem[0]).
+
+8.19.16. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+8.19.17. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+<suppressed ~8 debug messages>
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.19.18. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.19.19. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~25 debug messages>
+
+8.19.20. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+8.19.21. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.19.22. Executing OPT_SHARE pass.
+
+8.19.23. Executing OPT_DFF pass (perform DFF optimizations).
+Adding SRST signal on $auto$ff.cc:266:slice$472 ($dffe) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = \data_in, Q = \mem[0], rval = 0).
+Adding SRST signal on $auto$ff.cc:266:slice$457 ($dffe) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = \data_in, Q = \mem[5], rval = 0).
+Adding SRST signal on $auto$ff.cc:266:slice$460 ($dffe) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = \data_in, Q = \mem[4], rval = 0).
+Adding SRST signal on $auto$ff.cc:266:slice$463 ($dffe) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = \data_in, Q = \mem[3], rval = 0).
+Adding SRST signal on $auto$ff.cc:266:slice$466 ($dffe) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = \data_in, Q = \mem[2], rval = 0).
+Adding SRST signal on $auto$ff.cc:266:slice$469 ($dffe) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = \data_in, Q = \mem[1], rval = 0).
+Adding SRST signal on $auto$ff.cc:266:slice$451 ($dffe) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = \data_in, Q = \mem[7], rval = 0).
+Adding SRST signal on $auto$ff.cc:266:slice$454 ($dffe) from module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem (D = \data_in, Q = \mem[6], rval = 0).
+
+8.19.24. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+Removed 8 unused cells and 16 unused wires.
+<suppressed ~9 debug messages>
+
+8.19.25. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.19.26. Rerunning OPT passes. (Maybe there is more to do..)
+
+8.19.27. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  Evaluating internal representation of mux trees.
+  Analyzing evaluation results.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+<suppressed ~9 debug messages>
+
+8.19.28. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+8.19.29. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.19.30. Executing OPT_SHARE pass.
+
+8.19.31. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.19.32. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+8.19.33. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.19.34. Finished fast OPT passes. (There is nothing left to do.)
+
+8.20. Executing TECHMAP pass (map to technology primitives).
+
+8.20.1. Executing Verilog-2005 frontend: /usr/local/bin/../share/yosys/techmap.v
+Parsing Verilog input from `/usr/local/bin/../share/yosys/techmap.v' to AST representation.
+verilog frontend filename /usr/local/bin/../share/yosys/techmap.v
+Generating RTLIL representation for module `\_90_simplemap_bool_ops'.
+Generating RTLIL representation for module `\_90_simplemap_reduce_ops'.
+Generating RTLIL representation for module `\_90_simplemap_logic_ops'.
+Generating RTLIL representation for module `\_90_simplemap_compare_ops'.
+Generating RTLIL representation for module `\_90_simplemap_various'.
+Generating RTLIL representation for module `\_90_simplemap_registers'.
+Generating RTLIL representation for module `\_90_shift_ops_shr_shl_sshl_sshr'.
+Generating RTLIL representation for module `\_90_shift_shiftx'.
+Generating RTLIL representation for module `\_90_fa'.
+Generating RTLIL representation for module `\_90_lcu_brent_kung'.
+Generating RTLIL representation for module `\_90_alu'.
+Generating RTLIL representation for module `\_90_macc'.
+Generating RTLIL representation for module `\_90_alumacc'.
+Generating RTLIL representation for module `\$__div_mod_u'.
+Generating RTLIL representation for module `\$__div_mod_trunc'.
+Generating RTLIL representation for module `\_90_div'.
+Generating RTLIL representation for module `\_90_mod'.
+Generating RTLIL representation for module `\$__div_mod_floor'.
+Generating RTLIL representation for module `\_90_divfloor'.
+Generating RTLIL representation for module `\_90_modfloor'.
+Generating RTLIL representation for module `\_90_pow'.
+Generating RTLIL representation for module `\_90_pmux'.
+Generating RTLIL representation for module `\_90_demux'.
+Generating RTLIL representation for module `\_90_lut'.
+Generating RTLIL representation for module `\$connect'.
+Generating RTLIL representation for module `\$input_port'.
+Successfully finished Verilog frontend.
+
+8.20.2. Continuing TECHMAP pass.
+Using template $paramod$3ef7d3dd227da7627a99c5e5a6a4deb817573e39\_90_alu for cells of type $alu.
+Using extmapper simplemap for cells of type $logic_not.
+Using extmapper simplemap for cells of type $logic_and.
+Using extmapper simplemap for cells of type $xor.
+Using extmapper simplemap for cells of type $not.
+Using extmapper simplemap for cells of type $eq.
+Using extmapper simplemap for cells of type $sdffe.
+Using template $paramod\_90_fa\WIDTH=32'00000000000000000000000000000011 for cells of type $fa.
+Using template $paramod\_90_lcu_brent_kung\WIDTH=32'00000000000000000000000000000011 for cells of type $lcu.
+Using extmapper simplemap for cells of type $pos.
+Using extmapper simplemap for cells of type $mux.
+Using extmapper simplemap for cells of type $or.
+Using extmapper simplemap for cells of type $and.
+Using extmapper simplemap for cells of type $sdff.
+Using extmapper simplemap for cells of type $ne.
+Using extmapper simplemap for cells of type $sdffce.
+No more expansions possible.
+<suppressed ~322 debug messages>
+
+8.21. Executing OPT pass (performing simple optimizations).
+
+8.21.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+<suppressed ~16 debug messages>
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+<suppressed ~25 debug messages>
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+<suppressed ~25 debug messages>
+Optimizing module async_fifo.
+
+8.21.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+<suppressed ~21 debug messages>
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+<suppressed ~6 debug messages>
+Finding identical cells in module `\async_fifo'.
+Removed a total of 11 cells.
+
+8.21.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.21.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+Removed 6 unused cells and 115 unused wires.
+<suppressed ~9 debug messages>
+
+8.21.5. Finished fast OPT passes.
+
+8.22. Executing ABC pass (technology mapping using ABC).
+
+8.22.1. Extracting gate netlist of module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem' to `<abc-temp-dir>/input.blif'..
+
+8.22.1.1. Executed ABC.
+Extracted 293 gates and 561 wires to a netlist network with 267 inputs and 48 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Oct  2 2025 13:15:49)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /tmp/yosys-abc-9TraPx/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+8.22.1.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        1
+ABC RESULTS:            ANDNOT cells:       41
+ABC RESULTS:               MUX cells:      224
+ABC RESULTS:              NAND cells:        1
+ABC RESULTS:               NOT cells:        4
+ABC RESULTS:                OR cells:       16
+ABC RESULTS:             ORNOT cells:        4
+ABC RESULTS:        internal signals:      246
+ABC RESULTS:           input signals:      267
+ABC RESULTS:          output signals:       48
+Removing temp directory.
+
+8.22.2. Extracting gate netlist of module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011' to `<abc-temp-dir>/input.blif'..
+Don't call ABC as there is nothing to map.
+
+8.22.2.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Removing temp directory.
+
+8.22.3. Extracting gate netlist of module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011' to `<abc-temp-dir>/input.blif'..
+
+8.22.3.1. Executed ABC.
+Extracted 13 gates and 20 wires to a netlist network with 7 inputs and 7 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Oct  2 2025 13:15:49)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /tmp/yosys-abc-9TraPx/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+8.22.3.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        1
+ABC RESULTS:            ANDNOT cells:        3
+ABC RESULTS:               NOT cells:        3
+ABC RESULTS:              XNOR cells:        3
+ABC RESULTS:               XOR cells:        4
+ABC RESULTS:        internal signals:        6
+ABC RESULTS:           input signals:        7
+ABC RESULTS:          output signals:        7
+Removing temp directory.
+
+8.22.4. Extracting gate netlist of module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011' to `<abc-temp-dir>/input.blif'..
+
+8.22.4.1. Executed ABC.
+Extracted 15 gates and 22 wires to a netlist network with 7 inputs and 7 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Oct  2 2025 13:15:49)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_library /tmp/yosys-abc-9TraPx/stdcells.genlib 
+ABC: + strash 
+ABC: + dretime 
+ABC: + map 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+8.22.4.2. Re-integrating ABC results.
+ABC RESULTS:               AND cells:        1
+ABC RESULTS:            ANDNOT cells:        3
+ABC RESULTS:               NOT cells:        3
+ABC RESULTS:              XNOR cells:        3
+ABC RESULTS:               XOR cells:        4
+ABC RESULTS:        internal signals:        8
+ABC RESULTS:           input signals:        7
+ABC RESULTS:          output signals:        7
+Removing temp directory.
+
+8.22.5. Extracting gate netlist of module `\async_fifo' to `<abc-temp-dir>/input.blif'..
+Don't call ABC as there is nothing to map.
+
+8.22.5.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Removing temp directory.
+Removing global temp directory.
+
+8.23. Executing OPT pass (performing simple optimizations).
+
+8.23.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+<suppressed ~96 debug messages>
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+8.23.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+8.23.3. Executing OPT_DFF pass (perform DFF optimizations).
+
+8.23.4. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+Removed 2 unused cells and 382 unused wires.
+<suppressed ~5 debug messages>
+
+8.23.5. Finished fast OPT passes.
+
+8.24. Executing HIERARCHY pass (managing design hierarchy).
+Attribute `top' found on module `async_fifo'. Setting top module to async_fifo.
+
+8.24.1. Analyzing design hierarchy..
+Top module:  \async_fifo
+Used module:     $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+Used module:     $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+
+8.24.2. Analyzing design hierarchy..
+Top module:  \async_fifo
+Used module:     $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+Used module:     $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+Used module:     $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+Removed 0 unused modules.
+
+8.25. Printing statistics.
+
+=== $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem ===
+
+        +----------Local Count, excluding submodules.
+        | 
+      275 wires
+      589 wire bits
+       18 public wires
+      332 public wire bits
+       10 ports
+       76 port bits
+      545 cells
+       41   $_ANDNOT_
+        1   $_AND_
+      224   $_MUX_
+        1   $_NAND_
+        2   $_NOT_
+        4   $_ORNOT_
+       16   $_OR_
+      256   $_SDFFCE_PN0P_
+
+=== $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+        5 wires
+       11 wire bits
+        5 public wires
+       11 public wire bits
+        4 ports
+        8 port bits
+        6 cells
+        6   $_SDFF_PN0_
+
+=== $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       20 wires
+       34 wire bits
+       12 public wires
+       26 public wire bits
+        7 ports
+       13 port bits
+       19 cells
+        3   $_ANDNOT_
+        1   $_AND_
+        3   $_NOT_
+        5   $_SDFFE_PN0P_
+        3   $_XNOR_
+        4   $_XOR_
+
+=== $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011 ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       20 wires
+       34 wire bits
+       12 public wires
+       26 public wire bits
+        7 ports
+       13 port bits
+       19 cells
+        3   $_ANDNOT_
+        1   $_AND_
+        3   $_NOT_
+        5   $_SDFFE_PN0P_
+        3   $_XNOR_
+        4   $_XOR_
+
+=== async_fifo ===
+
+        +----------Local Count, excluding submodules.
+        | 
+       17 wires
+      122 wire bits
+       17 public wires
+      122 public wire bits
+        8 ports
+       70 port bits
+        5 submodules
+        1   $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+        2   $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+        1   $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+        1   $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        | 
+      595 async_fifo
+      545 $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+        6 $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+       19 $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+       19 $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+
+        +----------Count including submodules.
+        | 
+      342 wires
+      801 wire bits
+       69 public wires
+      528 public wire bits
+       40 ports
+      188 port bits
+        - memories
+        - memory bits
+        - processes
+      595 cells
+       47   $_ANDNOT_
+        3   $_AND_
+      224   $_MUX_
+        1   $_NAND_
+        8   $_NOT_
+        4   $_ORNOT_
+       16   $_OR_
+      256   $_SDFFCE_PN0P_
+       10   $_SDFFE_PN0P_
+       12   $_SDFF_PN0_
+        6   $_XNOR_
+        8   $_XOR_
+        5 submodules
+        1   $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+        2   $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+        1   $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+        1   $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+
+8.26. Executing CHECK pass (checking for obvious problems).
+Checking module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem...
+Checking module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011...
+Checking module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011...
+Checking module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011...
+Checking module async_fifo...
+Found and reported 0 problems.
+
+9. Executing DFFLIBMAP pass (mapping DFF cells to sequential cells from liberty file).
+  cell sky130_fd_sc_hd__dfxtp_1 (noninv, pins=3, area=20.02) is a direct match for cell type $_DFF_P_.
+  cell sky130_fd_sc_hd__dfrtn_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_NN0_.
+  cell sky130_fd_sc_hd__dfrtp_1 (noninv, pins=4, area=25.02) is a direct match for cell type $_DFF_PN0_.
+  cell sky130_fd_sc_hd__dfstp_2 (noninv, pins=4, area=26.28) is a direct match for cell type $_DFF_PN1_.
+  cell sky130_fd_sc_hd__edfxtp_1 (noninv, pins=4, area=30.03) is a direct match for cell type $_DFFE_PP_.
+  cell sky130_fd_sc_hd__dfbbn_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_NNN_.
+  cell sky130_fd_sc_hd__dfbbp_1 (noninv, pins=6, area=32.53) is a direct match for cell type $_DFFSR_PNN_.
+  final dff cell mappings:
+    unmapped dff cell: $_DFF_N_
+    \sky130_fd_sc_hd__dfxtp_1 _DFF_P_ (.CLK( C), .D( D), .Q( Q));
+    \sky130_fd_sc_hd__dfrtn_1 _DFF_NN0_ (.CLK_N( C), .D( D), .Q( Q), .RESET_B( R));
+    unmapped dff cell: $_DFF_NN1_
+    unmapped dff cell: $_DFF_NP0_
+    unmapped dff cell: $_DFF_NP1_
+    \sky130_fd_sc_hd__dfrtp_1 _DFF_PN0_ (.CLK( C), .D( D), .Q( Q), .RESET_B( R));
+    \sky130_fd_sc_hd__dfstp_2 _DFF_PN1_ (.CLK( C), .D( D), .Q( Q), .SET_B( R));
+    unmapped dff cell: $_DFF_PP0_
+    unmapped dff cell: $_DFF_PP1_
+    unmapped dff cell: $_DFFE_NN_
+    unmapped dff cell: $_DFFE_NP_
+    unmapped dff cell: $_DFFE_PN_
+    \sky130_fd_sc_hd__edfxtp_1 _DFFE_PP_ (.CLK( C), .D( D), .DE( E), .Q( Q));
+    \sky130_fd_sc_hd__dfbbn_1 _DFFSR_NNN_ (.CLK_N( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_NNP_
+    unmapped dff cell: $_DFFSR_NPN_
+    unmapped dff cell: $_DFFSR_NPP_
+    \sky130_fd_sc_hd__dfbbp_1 _DFFSR_PNN_ (.CLK( C), .D( D), .Q( Q), .Q_N(~Q), .RESET_B( R), .SET_B( S));
+    unmapped dff cell: $_DFFSR_PNP_
+    unmapped dff cell: $_DFFSR_PPN_
+    unmapped dff cell: $_DFFSR_PPP_
+
+9.1. Executing DFFLEGALIZE pass (convert FFs to types supported by the target).
+<suppressed ~24 debug messages>
+Mapping DFF cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem':
+  mapped 256 $_DFFE_PP_ cells to \sky130_fd_sc_hd__edfxtp_1 cells.
+Mapping DFF cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011':
+  mapped 6 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_1 cells.
+Mapping DFF cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011':
+  mapped 5 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_1 cells.
+Mapping DFF cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011':
+  mapped 5 $_DFF_P_ cells to \sky130_fd_sc_hd__dfxtp_1 cells.
+Mapping DFF cells in module `\async_fifo':
+
+10. Executing ABC pass (technology mapping using ABC).
+
+10.1. Extracting gate netlist of module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem' to `<abc-temp-dir>/input.blif'..
+
+10.1.1. Executed ABC.
+Extracted 545 gates and 845 wires to a netlist network with 299 inputs and 296 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Oct  2 2025 13:15:49)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.07 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__diode_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_0".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_8".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_bleeder_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__lpflow_inputisolatch_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (94 skipped: 63 seq; 13 tri-state; 18 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.11 sec
+ABC: Memory =   19.85 MB. Time =     0.11 sec
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.1.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:       32
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:       64
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:      194
+ABC RESULTS:   sky130_fd_sc_hd__and4b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:       32
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__mux4_2 cells:       64
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:       12
+ABC RESULTS:   sky130_fd_sc_hd__nand2b_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__nor2_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor4bb_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:       32
+ABC RESULTS:        internal signals:      250
+ABC RESULTS:           input signals:      299
+ABC RESULTS:          output signals:      296
+Removing temp directory.
+
+10.2. Extracting gate netlist of module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011' to `<abc-temp-dir>/input.blif'..
+
+10.2.1. Executed ABC.
+Extracted 6 gates and 14 wires to a netlist network with 7 inputs and 6 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Oct  2 2025 13:15:49)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.08 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__diode_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_0".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_8".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_bleeder_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__lpflow_inputisolatch_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (94 skipped: 63 seq; 13 tri-state; 18 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.11 sec
+ABC: Memory =   19.85 MB. Time =     0.11 sec
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.2.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        6
+ABC RESULTS:        internal signals:        1
+ABC RESULTS:           input signals:        7
+ABC RESULTS:          output signals:        6
+Removing temp directory.
+
+10.3. Extracting gate netlist of module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011' to `<abc-temp-dir>/input.blif'..
+
+10.3.1. Executed ABC.
+Extracted 24 gates and 35 wires to a netlist network with 10 inputs and 6 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Oct  2 2025 13:15:49)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.07 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__diode_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_0".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_8".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_bleeder_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__lpflow_inputisolatch_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (94 skipped: 63 seq; 13 tri-state; 18 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.11 sec
+ABC: Memory =   19.85 MB. Time =     0.11 sec
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.3.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a21bo_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a41oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and3_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand2_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nand3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21a_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:        6
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:        1
+ABC RESULTS:        internal signals:       19
+ABC RESULTS:           input signals:       10
+ABC RESULTS:          output signals:        6
+Removing temp directory.
+
+10.4. Extracting gate netlist of module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011' to `<abc-temp-dir>/input.blif'..
+
+10.4.1. Executed ABC.
+Extracted 24 gates and 35 wires to a netlist network with 10 inputs and 6 outputs.
+Running ABC script: <abc-temp-dir>/abc.script
+ABC: UC Berkeley, ABC 1.01 (compiled Oct  2 2025 13:15:49)
+ABC: abc 01> empty
+ABC: abc 01> source <abc-temp-dir>/abc.script
+ABC: + read_blif <abc-temp-dir>/input.blif 
+ABC: + read_lib -w /usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib 
+ABC: Parsing finished successfully.  Parsing time =     0.08 sec
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__decap_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__diode_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__dlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtn_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__dlxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__ebufn_8".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__edfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_0".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvn_8".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_1".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_2".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_4".
+ABC: Scl_LibertyReadGenlib() skipped three-state cell "sky130_fd_sc_hd__einvp_8".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_bleeder_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_12" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_3" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_6" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__lpflow_decapkapwr_8" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__lpflow_inputisolatch_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbn_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfbbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtn_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfrtp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfsbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfstp_4".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sdfxtp_4".
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_1" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_2" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped cell "sky130_fd_sc_hd__sdlclkp_4" without logic function.
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxbp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_1".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_2".
+ABC: Scl_LibertyReadGenlib() skipped sequential cell "sky130_fd_sc_hd__sedfxtp_4".
+ABC: Library "sky130_fd_sc_hd__tt_025C_1v80" from "/usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib" has 334 cells (94 skipped: 63 seq; 13 tri-state; 18 no func; 0 dont_use; 0 with 2 outputs; 0 with 3+ outputs).  Time =     0.11 sec
+ABC: Memory =   19.85 MB. Time =     0.11 sec
+ABC: Warning: Detected 9 multi-output cells (for example, "sky130_fd_sc_hd__fa_1").
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &fraig -x 
+ABC: + &put 
+ABC: + scorr 
+ABC: Warning: The network is combinational (run "fraig" or "fraig_sweep").
+ABC: + dc2 
+ABC: + dretime 
+ABC: + strash 
+ABC: + &get -n 
+ABC: + &dch -f 
+ABC: + &nf 
+ABC: + &put 
+ABC: + write_blif <abc-temp-dir>/output.blif 
+
+10.4.2. Re-integrating ABC results.
+ABC RESULTS:   sky130_fd_sc_hd__a21boi_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__a21oi_1 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__a41oi_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and2_0 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and3b_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__and4_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__clkinv_1 cells:        3
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_inputiso1p_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__lpflow_isobufsrc_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__mux2i_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__nor3_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__o21ai_0 cells:        5
+ABC RESULTS:   sky130_fd_sc_hd__or3_1 cells:        2
+ABC RESULTS:   sky130_fd_sc_hd__xnor2_1 cells:        1
+ABC RESULTS:   sky130_fd_sc_hd__xor2_1 cells:        1
+ABC RESULTS:        internal signals:       19
+ABC RESULTS:           input signals:       10
+ABC RESULTS:          output signals:        6
+Removing temp directory.
+
+10.5. Extracting gate netlist of module `\async_fifo' to `<abc-temp-dir>/input.blif'..
+Don't call ABC as there is nothing to map.
+
+10.5.1. Executed ABC.
+Extracted 0 gates and 0 wires to a netlist network with 0 inputs and 0 outputs.
+Removing temp directory.
+Removing global temp directory.
+
+11. Printing statistics.
+
+=== $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+     1268        - wires
+     1582        - wire bits
+       18        - public wires
+      332        - public wire bits
+       10        - ports
+       76        - port bits
+      694 1.13E+04 cells
+       32  160.154   sky130_fd_sc_hd__a21oi_1
+       64  400.384   sky130_fd_sc_hd__and2_0
+      194 1.21E+03   sky130_fd_sc_hd__and3_1
+        1    10.01   sky130_fd_sc_hd__and4b_1
+       32  120.115   sky130_fd_sc_hd__clkinv_1
+      256 7.69E+03   sky130_fd_sc_hd__edfxtp_1
+        3   18.768   sky130_fd_sc_hd__lpflow_isobufsrc_1
+       64 1.44E+03   sky130_fd_sc_hd__mux4_2
+       12   45.043   sky130_fd_sc_hd__nand2_1
+        2   12.512   sky130_fd_sc_hd__nand2b_1
+        1    3.754   sky130_fd_sc_hd__nor2_1
+        1    10.01   sky130_fd_sc_hd__nor4bb_1
+       32  160.154   sky130_fd_sc_hd__o21ai_0
+
+   Chip area for module '$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem': 11283.321600
+     of which used for sequential elements: 7687.372800 (68.13%)
+
+=== $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       24        - wires
+       30        - wire bits
+        5        - public wires
+       11        - public wire bits
+        4        - ports
+        8        - port bits
+       12  157.651 cells
+        6   37.536   sky130_fd_sc_hd__and2_0
+        6  120.115   sky130_fd_sc_hd__dfxtp_1
+
+   Chip area for module '$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011': 157.651200
+     of which used for sequential elements: 120.115200 (76.19%)
+
+=== $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       65        - wires
+       79        - wire bits
+       12        - public wires
+       26        - public wire bits
+        7        - ports
+       13        - port bits
+       30  253.994 cells
+        1    10.01   sky130_fd_sc_hd__a21bo_1
+        5   25.024   sky130_fd_sc_hd__a21oi_1
+        1    8.758   sky130_fd_sc_hd__a41oi_1
+        1    6.256   sky130_fd_sc_hd__and2_0
+        1    6.256   sky130_fd_sc_hd__and3_1
+        1    8.758   sky130_fd_sc_hd__and4_1
+        1    3.754   sky130_fd_sc_hd__clkinv_1
+        5  100.096   sky130_fd_sc_hd__dfxtp_1
+        1    6.256   sky130_fd_sc_hd__lpflow_inputiso1p_1
+        1    6.256   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        1    3.754   sky130_fd_sc_hd__nand2_1
+        1    7.507   sky130_fd_sc_hd__nand3b_1
+        1    7.507   sky130_fd_sc_hd__o21a_1
+        6   30.029   sky130_fd_sc_hd__o21ai_0
+        1    6.256   sky130_fd_sc_hd__or3_1
+        1    8.758   sky130_fd_sc_hd__xnor2_1
+        1    8.758   sky130_fd_sc_hd__xor2_1
+
+   Chip area for module '$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011': 253.993600
+     of which used for sequential elements: 100.096000 (39.41%)
+
+=== $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011 ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       67        - wires
+       81        - wire bits
+       12        - public wires
+       26        - public wire bits
+        7        - ports
+       13        - port bits
+       32  265.254 cells
+        1    7.507   sky130_fd_sc_hd__a21boi_0
+        5   25.024   sky130_fd_sc_hd__a21oi_1
+        1    8.758   sky130_fd_sc_hd__a41oi_1
+        1    6.256   sky130_fd_sc_hd__and2_0
+        1    8.758   sky130_fd_sc_hd__and3b_1
+        1    8.758   sky130_fd_sc_hd__and4_1
+        3   11.261   sky130_fd_sc_hd__clkinv_1
+        5  100.096   sky130_fd_sc_hd__dfxtp_1
+        2   12.512   sky130_fd_sc_hd__lpflow_inputiso1p_1
+        1    6.256   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        1    10.01   sky130_fd_sc_hd__mux2i_1
+        1    5.005   sky130_fd_sc_hd__nor3_1
+        5   25.024   sky130_fd_sc_hd__o21ai_0
+        2   12.512   sky130_fd_sc_hd__or3_1
+        1    8.758   sky130_fd_sc_hd__xnor2_1
+        1    8.758   sky130_fd_sc_hd__xor2_1
+
+   Chip area for module '$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011': 265.254400
+     of which used for sequential elements: 100.096000 (37.74%)
+
+=== async_fifo ===
+
+        +----------Local Count, excluding submodules.
+        |        +-Local Area, excluding submodules.
+        |        | 
+       17        - wires
+      122        - wire bits
+       17        - public wires
+      122        - public wire bits
+        8        - ports
+       70        - port bits
+        5        - submodules
+        1        -   $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+        2        -   $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+        1        -   $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+        1        -   $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+
+   Chip area for module '\async_fifo': 0.000000
+     of which used for sequential elements: 0.000000 (-nan%)
+
+=== design hierarchy ===
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+      780 1.21E+04 async_fifo
+      694 1.13E+04 $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+       12  157.651 $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+       30  253.994 $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+       32  265.254 $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+
+        +----------Count including submodules.
+        |        +-Area including submodules.
+        |        | 
+     1465        - wires
+     1924        - wire bits
+       69        - public wires
+      528        - public wire bits
+       40        - ports
+      188        - port bits
+        -        - memories
+        -        - memory bits
+        -        - processes
+      780 1.21E+04 cells
+        1    10.01   sky130_fd_sc_hd__a21bo_1
+        1    7.507   sky130_fd_sc_hd__a21boi_0
+       42  210.202   sky130_fd_sc_hd__a21oi_1
+        2   17.517   sky130_fd_sc_hd__a41oi_1
+       78  487.968   sky130_fd_sc_hd__and2_0
+      195  1219.92   sky130_fd_sc_hd__and3_1
+        1    8.758   sky130_fd_sc_hd__and3b_1
+        2   17.517   sky130_fd_sc_hd__and4_1
+        1    10.01   sky130_fd_sc_hd__and4b_1
+       36   135.13   sky130_fd_sc_hd__clkinv_1
+       22  440.422   sky130_fd_sc_hd__dfxtp_1
+      256 7.69E+03   sky130_fd_sc_hd__edfxtp_1
+        3   18.768   sky130_fd_sc_hd__lpflow_inputiso1p_1
+        5    31.28   sky130_fd_sc_hd__lpflow_isobufsrc_1
+        1    10.01   sky130_fd_sc_hd__mux2i_1
+       64 1.44E+03   sky130_fd_sc_hd__mux4_2
+       13   48.797   sky130_fd_sc_hd__nand2_1
+        2   12.512   sky130_fd_sc_hd__nand2b_1
+        1    7.507   sky130_fd_sc_hd__nand3b_1
+        1    3.754   sky130_fd_sc_hd__nor2_1
+        1    5.005   sky130_fd_sc_hd__nor3_1
+        1    10.01   sky130_fd_sc_hd__nor4bb_1
+        1    7.507   sky130_fd_sc_hd__o21a_1
+       43  215.206   sky130_fd_sc_hd__o21ai_0
+        3   18.768   sky130_fd_sc_hd__or3_1
+        2   17.517   sky130_fd_sc_hd__xnor2_1
+        2   17.517   sky130_fd_sc_hd__xor2_1
+        5 1.21E+04 submodules
+        1 1.13E+04   $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem
+        2  315.302   $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011
+        1  253.994   $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011
+        1  265.254   $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011
+
+   Chip area for top module '\async_fifo': 12117.872000
+     of which used for sequential elements: 8127.795200 (67.07%)
+
+12. Executing OPT pass (performing simple optimizations).
+
+12.1. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+12.2. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+12.3. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+12.4. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+12.5. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+12.6. Executing OPT_DFF pass (perform DFF optimizations).
+
+12.7. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+Removed 0 unused cells and 928 unused wires.
+<suppressed ~17 debug messages>
+
+12.8. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+12.9. Rerunning OPT passes. (Maybe there is more to do..)
+
+12.10. Executing OPT_MUXTREE pass (detect dead branches in mux trees).
+Running muxtree optimizer on module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Running muxtree optimizer on module \async_fifo..
+  Creating internal representation of mux trees.
+  No muxes found in this module.
+Removed 0 multiplexer ports.
+
+12.11. Executing OPT_REDUCE pass (consolidate $*mux and $reduce_* inputs).
+  Optimizing cells in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+  Optimizing cells in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+  Optimizing cells in module \async_fifo.
+Performed a total of 0 changes.
+
+12.12. Executing OPT_MERGE pass (detect identical cells).
+Finding identical cells in module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Finding identical cells in module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Finding identical cells in module `\async_fifo'.
+Removed a total of 0 cells.
+
+12.13. Executing OPT_DFF pass (perform DFF optimizations).
+
+12.14. Executing OPT_CLEAN pass (remove unused cells and wires).
+Finding unused cells or wires in module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem..
+Finding unused cells or wires in module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011..
+Finding unused cells or wires in module \async_fifo..
+
+12.15. Executing OPT_EXPR pass (perform const folding).
+Optimizing module $paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem.
+Optimizing module $paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module $paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011.
+Optimizing module async_fifo.
+
+12.16. Finished fast OPT passes. (There is nothing left to do.)
+
+13. Executing Verilog backend.
+Dumping module `$paramod$c187add8a104ddaa470efe8146e8110778d2ccf0\mem'.
+Dumping module `$paramod\ff_2_sync\SIZE=s32'00000000000000000000000000000011'.
+Dumping module `$paramod\rd_ptr\SIZE=s32'00000000000000000000000000000011'.
+Dumping module `$paramod\wtr_ptr\SIZE=s32'00000000000000000000000000000011'.
+Dumping module `\async_fifo'.
+
+14. Generating Graphviz representation of design.
+Writing dot description to `schematic/(async_fifo_synth_typ.v)_sch.dot'.
+Dumping module async_fifo to page 1.
+Exec: dot -Tpdf 'schematic/(async_fifo_synth_typ.v)_sch.dot' > 'schematic/(async_fifo_synth_typ.v)_sch.pdf.new' && mv 'schematic/(async_fifo_synth_typ.v)_sch.pdf.new' 'schematic/(async_fifo_synth_typ.v)_sch.pdf'
+
+End of script. Logfile hash: 731a7b0cd6, CPU: user 0.45s system 0.17s, MEM: 53.35 MB peak
+Yosys 0.57+260 (git sha1 f7120e9c2, g++ 13.3.0-6ubuntu2~24.04 -fPIC -O3)
+Time spent: 62% 2x abc (0 sec), 4% 2x stat (0 sec), ...

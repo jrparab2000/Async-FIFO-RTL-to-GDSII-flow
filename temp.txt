@@ -1,0 +1,192 @@
+# ==============================================================================
+# ASIC Front-End Flow Makefile: Lint (Questa) -> Synth (Yosys) -> STA (OpenSTA)
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# 1. Global Configuration (Override from command line)
+# ------------------------------------------------------------------------------
+FILE_LIST  ?= files.f
+TOP_MODULE ?= async_fifo
+WORK_DIR   ?= work
+
+# Tool Executables
+YOSYS ?= yosys
+VLOG  ?= vlog
+VLIB  ?= vlib
+STA   ?= sta
+
+# Timing & Constraints (Used for OpenSTA)
+CLOCK_PORT   ?= clk
+CLOCK_PERIOD ?= 10.0
+SDC_FILE     ?= # Leave blank to auto-generate a basic clock constraint
+
+# ------------------------------------------------------------------------------
+# 2. PVT Corner Library Definitions (Replace with your PDK paths)
+# ------------------------------------------------------------------------------
+
+PDK_ROOT = /usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lib
+LIB_SLOW ?= $(PDK_ROOT)/sky130_fd_sc_hd__ss_100C_1v60.lib
+LIB_TYP  ?= $(PDK_ROOT)/sky130_fd_sc_hd__tt_025C_1v80.lib
+LIB_FAST ?= $(PDK_ROOT)/sky130_fd_sc_hd__ff_n40C_1v95.lib
+
+# ------------------------------------------------------------------------------
+# 3. Tool Flags & Commands
+# ------------------------------------------------------------------------------
+VLOG_LINT_FLAGS ?= -lint -sv +acc -work $(WORK_DIR)
+YOSYS_READ_CMD   = read_verilog -sv $(shell grep -v '^[[:space:]]*//' $(FILE_LIST) | grep -v '^[[:space:]]*\#')
+
+# ------------------------------------------------------------------------------
+# 4. Main Targets
+# ------------------------------------------------------------------------------
+.PHONY: all help lint clean
+.PHONY: synth_slow synth_typ synth_fast synth_all do_synth
+.PHONY: sta_slow sta_typ sta_fast sta_all do_sta
+
+all: help
+
+help:
+	@echo "========================================================================"
+	@echo " Available Targets:"
+	@echo "========================================================================"
+	@echo "  make lint        - Run QuestaSim linting using $(FILE_LIST)"
+	@echo "  make synth_all   - Run synthesis for ALL corners (slow, typ, fast)"
+	@echo "  make sta_all     - Run Static Timing Analysis for ALL synthesized netlists"
+	@echo "  make flow_all    - Run Lint -> Synth -> STA for everything"
+	@echo "  make clean       - Remove logs, netlists, and work directories"
+	@echo ""
+	@echo " Individual Corner Targets:"
+	@echo "  make synth_slow / synth_typ / synth_fast"
+	@echo "  make sta_slow   / sta_typ   / sta_fast"
+	@echo ""
+	@echo " Example Overrides:"
+	@echo "  make sta_slow SDC_FILE=my_constraints.sdc"
+	@echo "  make sta_typ CLOCK_PORT=sys_clk CLOCK_PERIOD=5.5"
+	@echo "========================================================================"
+
+flow_all: lint synth_all sta_all
+
+# --- QuestaSim Linting ---
+lint:
+	@echo "\n[INFO] Starting QuestaSim Linting..."
+	@if [ ! -d $(WORK_DIR) ]; then $(VLIB) $(WORK_DIR); fi
+	$(VLOG) $(VLOG_LINT_FLAGS) -f $(FILE_LIST) -l questa_lint.log
+	@echo "[SUCCESS] Linting complete.\n"
+
+# ------------------------------------------------------------------------------
+# 5. Synthesis Targets (Yosys)
+# ------------------------------------------------------------------------------
+synth_slow: CURRENT_LIB = $(LIB_SLOW)
+synth_slow: CURRENT_OUT = $(TOP_MODULE)_synth_slow.v
+synth_slow: CURRENT_LOG = yosys_synth_slow.log
+synth_slow: do_synth
+
+synth_typ: CURRENT_LIB = $(LIB_TYP)
+synth_typ: CURRENT_OUT = $(TOP_MODULE)_synth_typ.v
+synth_typ: CURRENT_LOG = yosys_synth_typ.log
+synth_typ: do_synth
+
+synth_fast: CURRENT_LIB = $(LIB_FAST)
+synth_fast: CURRENT_OUT = $(TOP_MODULE)_synth_fast.v
+synth_fast: CURRENT_LOG = yosys_synth_fast.log
+synth_fast: do_synth
+
+synth_all: synth_slow 
+synth_all: synth_typ
+synth_all: synth_fast
+synth_all:
+	@echo "\n[SUCCESS] Multi-corner synthesis complete!\n"
+
+do_synth:
+	@echo "\n[INFO] Running Synthesis -> Target: $(CURRENT_OUT) | Lib: $(CURRENT_LIB)"
+	@$(eval YOSYS_SCRIPT = "$(YOSYS_READ_CMD); \
+	                       hierarchy -check -top $(TOP_MODULE); \
+	                       read_liberty -lib $(CURRENT_LIB); \
+	                       synth -top $(TOP_MODULE); \
+	                       dfflibmap -liberty $(CURRENT_LIB); \
+	                       abc -liberty $(CURRENT_LIB); \
+	                       opt -purge; \
+	                       write_verilog -noattr -noexpr $(CURRENT_OUT)")
+	@$(YOSYS) -l $(CURRENT_LOG) -p $(YOSYS_SCRIPT) > /dev/null
+	@echo "[SUCCESS] Generated $(CURRENT_OUT)"
+
+# ------------------------------------------------------------------------------
+# 6. STA Targets (OpenSTA)
+# ------------------------------------------------------------------------------
+sta_slow: CURRENT_LIB = $(LIB_SLOW)
+sta_slow: CURRENT_NETLIST = $(TOP_MODULE)_synth_slow.v
+sta_slow: CURRENT_LOG = opensta_slow.log
+sta_slow: synth_slow do_sta  # Ensure synthesis runs first if file is missing
+
+sta_typ: CURRENT_LIB = $(LIB_TYP)
+sta_typ: CURRENT_NETLIST = $(TOP_MODULE)_synth_typ.v
+sta_typ: CURRENT_LOG = opensta_typ.log
+sta_typ: synth_typ do_sta
+
+sta_fast: CURRENT_LIB = $(LIB_FAST)
+sta_fast: CURRENT_NETLIST = $(TOP_MODULE)_synth_fast.v
+sta_fast: CURRENT_LOG = opensta_fast.log
+sta_fast: synth_fast do_sta
+
+sta_all: sta_slow sta_typ sta_fast
+	@echo "\n[SUCCESS] Multi-corner STA complete!\n"
+
+do_sta:
+	@echo "\n[INFO] Running STA -> Netlist: $(CURRENT_NETLIST) | Lib: $(CURRENT_LIB)"
+	@# Generate a temporary Tcl script for OpenSTA
+	@echo "read_liberty $(CURRENT_LIB)" > run_sta.tcl
+	@echo "read_verilog $(CURRENT_NETLIST)" >> run_sta.tcl
+	@echo "link_design $(TOP_MODULE)" >> run_sta.tcl
+	@# Apply constraints
+	@if [ -n "$(SDC_FILE)" ]; then \
+		echo "read_sdc $(SDC_FILE)" >> run_sta.tcl; \
+	else \
+		echo "create_clock -name $(CLOCK_PORT) -period $(CLOCK_PERIOD) [get_ports {$(CLOCK_PORT)}]" >> run_sta.tcl; \
+	fi
+	@# Report Setup (Max) and Hold (Min)
+	@echo "puts \"\n================ SETUP REPORT (MAX PATH) ================\"" >> run_sta.tcl
+	@echo "report_checks -path_delay max -format full" >> run_sta.tcl
+	@echo "puts \"\n================ HOLD REPORT  (MIN PATH) ================\"" >> run_sta.tcl
+	@echo "report_checks -path_delay min -format full" >> run_sta.tcl
+	@echo "exit" >> run_sta.tcl
+	@# Execute OpenSTA
+	@$(STA) -exit run_sta.tcl > $(CURRENT_LOG)
+	@rm run_sta.tcl
+	@echo "[SUCCESS] STA complete. Check $(CURRENT_LOG)"
+
+# ------------------------------------------------------------------------------
+# 7. Cleanup
+# ------------------------------------------------------------------------------
+clean:
+	@echo "[INFO] Cleaning up generated files..."
+	rm -rf $(WORK_DIR) transcript modelsim.ini
+	rm -f *.log *synth_*.v run_sta.tcl
+	@echo "[SUCCESS] Clean complete."
+
+# ------------------------------------------------------------------------------
+# 8. Visualization (Yosys Show)
+# ------------------------------------------------------------------------------
+VIEW_FORMAT ?= pdf
+
+.PHONY: show_slow show_typ show_fast
+
+# Choose which corner you want to visualize
+show_slow: CURRENT_LIB = $(LIB_SLOW)
+show_slow: CURRENT_NETLIST = $(TOP_MODULE)_synth_slow.v
+show_slow: do_show
+
+show_typ: CURRENT_LIB = $(LIB_TYP)
+show_typ: CURRENT_NETLIST = $(TOP_MODULE)_synth_typ.v
+show_typ: do_show
+
+show_fast: CURRENT_LIB = $(LIB_FAST)
+show_fast: CURRENT_NETLIST = $(TOP_MODULE)_synth_fast.v
+show_fast: do_show
+
+do_show:
+	@echo "[INFO] Visualizing $(TOP_MODULE) from $(CURRENT_NETLIST)..."
+	@if [ ! -f $(CURRENT_NETLIST) ]; then echo "[ERROR] Netlist not found!"; exit 1; fi
+	$(YOSYS) -p "read_liberty -lib $(CURRENT_LIB); \
+	            read_verilog $(CURRENT_NETLIST); \
+	            hierarchy -top $(TOP_MODULE); \
+	            show -format $(VIEW_FORMAT) -prefix ./$(TOP_MODULE)_schematic $(TOP_MODULE)"
+	@echo "[SUCCESS] Created $(TOP_MODULE)_schematic.$(VIEW_FORMAT)"
