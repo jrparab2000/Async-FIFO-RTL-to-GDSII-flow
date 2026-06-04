@@ -49,6 +49,19 @@ module async_fifo_tb;
     // Read Clock: Slow Domain (~40MHz / 25ns period)
     always #5 rclk = ~rclk;
 
+    // ===========helper array
+    logic [DATA_SIZE-1:0] scoreboard_q_wave[SIZE_FIFO];
+
+    always @(posedge wclk or posedge rclk) begin
+    // Initialize/flush the helper array with zeros or X's
+    scoreboard_q_wave = '{default: 0}; 
+    
+    // Copy whatever elements currently exist in the queue
+    for (int i = 0; i < scoreboard_q.size(); i++) begin
+        scoreboard_q_wave[i] = scoreboard_q[i];
+    end
+end
+
     // ==========================================
     // 4. Autonomous Scoreboard & Monitors
     // ==========================================
@@ -56,7 +69,7 @@ module async_fifo_tb;
     // Monitor Write Actions
     always @(posedge wclk) begin
         queue_full = ((SIZE_FIFO) - scoreboard_q.size()) == 0;
-        if (wtr_en && !full && wrst_n) begin
+        if (wtr_en && wrst_n && !full) begin
             total_count++;
             scoreboard_q.push_back(data_in); // Track what went in
         end
@@ -67,30 +80,40 @@ module async_fifo_tb;
             error_count++;
         end
     end
-
+    logic [DATA_SIZE-1:0] expected_data;
+    logic flag;
     // Monitor Read Actions & Check Data Integrity
     always @(posedge rclk) begin
         if (rd_en && !empty && rrst_n) begin
-            logic [DATA_SIZE-1:0] expected_data;
-            
-            // Pop from golden model queue
             if (scoreboard_q.size() > 0) begin
-                expected_data = scoreboard_q.pop_front();
-                
-                // Compare DUT output against Golden Model
-                if (data_out === expected_data) begin
-                    match_count++;
-                end else begin
-                    $error("[DATA CORRUPTION ERROR] @ %0t ps: Expected 0x%h, Got 0x%h", $time, expected_data, data_out);
-                    error_count++;
-                end
+                expected_data <= scoreboard_q.pop_front();
             end
+            flag <= 1;
+            
         end
+        else 
+            flag <= 0;
 
         // Underflow / Empty Protection Check
         if (rd_en && empty && !(scoreboard_q.size() == 0) && rrst_n) begin
             $error("[UNDERFLOW ERROR] @ %0t ps: rd_en asserted while FIFO is EMPTY! and queue has %0d elements", $time, scoreboard_q.size());
             error_count++;
+        end
+    end
+
+    always @(posedge rclk) begin
+        // Compare DUT output against Golden Model
+        if (flag) begin
+            // Pop from golden model queue
+            // if (scoreboard_q.size() > 0) begin
+            //     expected_data = scoreboard_q.pop_front();
+            // end
+            if (data_out === expected_data) begin
+                match_count++;
+            end else begin
+                $error("[DATA CORRUPTION ERROR] @ %0t ps: Expected 0x%h, Got 0x%h", $time, expected_data, data_out);
+                error_count++;
+            end
         end
     end
 
@@ -154,10 +177,9 @@ module async_fifo_tb;
         // -------------------------------------------------------------
         $display("\n--- TEST 4: Reading Until EMPTY (Slow Read Domain) ---");
         @(posedge rclk);
-        
+        rd_en <= 1;
         // Read out all data elements
         while (!empty) begin
-            rd_en = 1;
             @(posedge rclk);
         end
         rd_en = 0;
@@ -188,10 +210,10 @@ module async_fifo_tb;
             begin
                 for (int j = 0; j < 50; j++) begin
                     if (!full) begin
-                        wtr_en  = 1;
-                        data_in = $urandom();
+                        wtr_en  <= 1;
+                        data_in <= $urandom();
                     end else begin
-                        wtr_en  = 0;
+                        wtr_en  <= 0;
                     end
                     @(posedge wclk);
                 end
