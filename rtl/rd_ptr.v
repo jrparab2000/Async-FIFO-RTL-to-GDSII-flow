@@ -3,13 +3,13 @@ module rd_ptr #(parameter SIZE = 8) (
     input wire clk,
     input wire rst_n,
     input wire rd_en,
-    input wire [SIZE-1:0] ptr_g_in,
-    output wire [SIZE-1:0] ptr_g_out,
-    output wire [SIZE-1:0] ptr_b_out,
+    input wire [SIZE:0] ptr_g_in,
+    output wire [SIZE:0] ptr_g_out,
+    output wire [SIZE:0] ptr_b_out,
     output wire empty
 ); 
-    reg [SIZE-1:0] ptr, ptr_g, ptr_g_next;
-    wire [SIZE-1:0] ptr_next;
+    reg [SIZE:0] ptr, ptr_g, ptr_g_next;
+    wire [SIZE:0] ptr_next;
     wire empty_i;
 
     always@(posedge clk) begin
@@ -26,8 +26,8 @@ module rd_ptr #(parameter SIZE = 8) (
     end
 
     always@(*) begin
-        ptr_g_next[SIZE-1] = ptr_next[SIZE-1];
-        for(int i = (SIZE-2); i >= 0; i--) begin
+        ptr_g_next[SIZE] = ptr_next[SIZE];
+        for(int i = (SIZE-1); i >= 0; i--) begin
             ptr_g_next[i] = ptr_next[i+1]^ptr_next[i];
         end
     end

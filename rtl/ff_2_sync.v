@@ -2,10 +2,10 @@
 module ff_2_sync #(parameter SIZE = 8) (
     input wire clk,
     input wire rst_n,
-    input wire [SIZE-1:0] din,
-    output reg [SIZE-1:0] dout
+    input wire [SIZE:0] din,
+    output reg [SIZE:0] dout
 );
-    reg [SIZE-1:0] ff_1;
+    reg [SIZE:0] ff_1;
     
     always@(posedge clk) begin
         if(!rst_n) begin
