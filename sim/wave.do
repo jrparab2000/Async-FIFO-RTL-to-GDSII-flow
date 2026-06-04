@@ -42,8 +42,7 @@ add wave -noupdate -color {Light Blue}  -radix binary      /async_fifo_tb/rclk
 add wave -noupdate -color {Red}         -radix binary      /async_fifo_tb/rrst_n
 add wave -noupdate -color {Cyan}        -radix binary      /async_fifo_tb/rd_en
 add wave -noupdate -color {Cyan}        -radix binary      /async_fifo_tb/flag
-add wave -noupdate -color {Cyan}        -radix hexadecimal      /async_fifo_tb/expected_data
-add wave -noupdate -color {Cyan}        -radix binary      /async_fifo_tb/scoreboard_q_wave
+add wave -noupdate -color {Cyan}        -radix hexadecimal /async_fifo_tb/expected_data
 add wave -noupdate -color {Yellow}      -radix hexadecimal /async_fifo_tb/data_out
 add wave -noupdate -color {Red}         -radix binary      /async_fifo_tb/empty
 add wave -noupdate -color {Light Blue}  -radix binary      /async_fifo_tb/dut/wtr_g_ptr_ff

@@ -47,20 +47,22 @@ module async_fifo_tb;
     always #5 wclk = ~wclk;
 
     // Read Clock: Slow Domain (~40MHz / 25ns period)
-    always #5 rclk = ~rclk;
+    always #12.5 rclk = ~rclk;
 
-    // ===========helper array
+    // =========== helper array ===================
+    // can be used to see what's inside the queue
+    // ============================================
     logic [DATA_SIZE-1:0] scoreboard_q_wave[SIZE_FIFO];
 
     always @(posedge wclk or posedge rclk) begin
-    // Initialize/flush the helper array with zeros or X's
-    scoreboard_q_wave = '{default: 0}; 
-    
-    // Copy whatever elements currently exist in the queue
-    for (int i = 0; i < scoreboard_q.size(); i++) begin
-        scoreboard_q_wave[i] = scoreboard_q[i];
+        // Initialize/flush the helper array with zeros or X's
+        scoreboard_q_wave = '{default: 0}; 
+        
+        // Copy whatever elements currently exist in the queue
+        for (int i = 0; i < scoreboard_q.size(); i++) begin
+            scoreboard_q_wave[i] = scoreboard_q[i];
+        end
     end
-end
 
     // ==========================================
     // 4. Autonomous Scoreboard & Monitors
@@ -68,7 +70,7 @@ end
     
     // Monitor Write Actions
     always @(posedge wclk) begin
-        queue_full = ((SIZE_FIFO) - scoreboard_q.size()) == 0;
+        queue_full = ((SIZE_FIFO) - scoreboard_q.size()) <= 1 ;
         if (wtr_en && wrst_n && !full) begin
             total_count++;
             scoreboard_q.push_back(data_in); // Track what went in
@@ -208,7 +210,7 @@ end
         fork
             // Write process
             begin
-                for (int j = 0; j < 50; j++) begin
+                for (int j = 0; j < 1000; j++) begin
                     if (!full) begin
                         wtr_en  <= 1;
                         data_in <= $urandom();
@@ -222,7 +224,7 @@ end
             
             // Read process
             begin
-                for (int k = 0; k < 50; k++) begin
+                for (int k = 0; k < 1000; k++) begin
                     if (!empty) begin
                         rd_en = 1;
                     end else begin

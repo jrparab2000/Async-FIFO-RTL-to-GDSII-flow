@@ -21,11 +21,12 @@ export FILE_LIST = ../files.f
 SYNTH_DIR = synth
 STA_DIR   = sta
 LINT_DIR = lint
+SIM_DIR = sim
 
-.PHONY: all synth sta lint clean
+.PHONY: all synth sta lint clean sim
 
 # Default target runs the entire synthesis and STA flow
-all: clean lint synth sta
+all: clean lint synth sta sim
 
 # Call synthesis sub-makefile
 synth:
@@ -38,8 +39,12 @@ sta:
 lint:
 	$(MAKE) -C $(LINT_DIR) all
 
+sim:
+	$(MAKE) -C $(SIM_DIR) run_cli
+
 # Clean both synthesis and STA directories
 clean:
 	$(MAKE) -C $(SYNTH_DIR) clean
 	$(MAKE) -C $(STA_DIR) clean
 	$(MAKE) -C $(LINT_DIR) clean
+	$(MAKE) -C $(SIM_DIR) clean
