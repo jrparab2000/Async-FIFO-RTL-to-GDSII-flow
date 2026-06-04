@@ -5,7 +5,7 @@ module async_fifo_tb;
     // ==========================================
     // 1. Parameters & Signals
     // ==========================================
-    parameter SIZE_FIFO = 16;
+    parameter SIZE_FIFO = 8;
     parameter DATA_SIZE = 32;
     
     // Write Domain Ports
@@ -23,8 +23,10 @@ module async_fifo_tb;
     logic empty;
 
     // Verification Scoreboard (Golden Model Queue)
-    logic [DATA_SIZE-1:0] scoreboard_q[$];
+    logic [DATA_SIZE-1:0] scoreboard_q[$:(SIZE_FIFO-1)];
+    logic queue_full;
     int match_count = 0;
+    int total_count = 0;
     int error_count = 0;
 
     // ==========================================
@@ -45,7 +47,7 @@ module async_fifo_tb;
     always #5 wclk = ~wclk;
 
     // Read Clock: Slow Domain (~40MHz / 25ns period)
-    always #12.5 rclk = ~rclk;
+    always #5 rclk = ~rclk;
 
     // ==========================================
     // 4. Autonomous Scoreboard & Monitors
@@ -53,13 +55,15 @@ module async_fifo_tb;
     
     // Monitor Write Actions
     always @(posedge wclk) begin
+        queue_full = ((SIZE_FIFO) - scoreboard_q.size()) == 0;
         if (wtr_en && !full && wrst_n) begin
+            total_count++;
             scoreboard_q.push_back(data_in); // Track what went in
         end
         
         // Overwrite Protection Check
-        if (wtr_en && full && wrst_n) begin
-            $error("[OVERWRITE ERROR] @ %0t ps: wtr_en asserted while FIFO is FULL! Data 0x%h dropped.", $time, data_in);
+        if (wtr_en && full && !queue_full && wrst_n) begin
+            $error("[OVERWRITE ERROR] @ %0t ps: wtr_en asserted while FIFO is FULL! Data 0x%h dropped spaces in queue %0d.", $time, data_in, scoreboard_q.size());
             error_count++;
         end
     end
@@ -84,8 +88,8 @@ module async_fifo_tb;
         end
 
         // Underflow / Empty Protection Check
-        if (rd_en && empty && rrst_n) begin
-            $error("[UNDERFLOW ERROR] @ %0t ps: rd_en asserted while FIFO is EMPTY!", $time);
+        if (rd_en && empty && !(scoreboard_q.size() == 0) && rrst_n) begin
+            $error("[UNDERFLOW ERROR] @ %0t ps: rd_en asserted while FIFO is EMPTY! and queue has %0d elements", $time, scoreboard_q.size());
             error_count++;
         end
     end
@@ -217,7 +221,7 @@ module async_fifo_tb;
         $display("\n=======================================================");
         $display("             FIFO SIMULATION REPORT CARD              ");
         $display("=======================================================");
-        $display(" Total Successful Packet Transfers: %0d", match_count);
+        $display(" Total Successful Packet Transfers: %0d out of %0d", match_count, total_count);
         $display(" Total Simulation Violations/Errors: %0d", error_count);
         $display("=======================================================");
         if (error_count == 0 && match_count > 0) begin

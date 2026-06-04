@@ -20,21 +20,21 @@ module wtr_ptr #(parameter SIZE = 8) (
         else begin
             if(!full_i && wtr_en) begin
                 ptr <= ptr_next;
-                ptr_g <= ptr_g_next;
+                // ptr_g <= ptr_g_next;
             end
         end
     end
 
     always@(*) begin
-        ptr_g_next[SIZE] = ptr_next[SIZE];
+        ptr_g_next[SIZE] = ptr[SIZE];
         for(int i = (SIZE-1); i >= 0; i--) begin
-            ptr_g_next[i] = ptr_next[i+1]^ptr_next[i];
+            ptr_g_next[i] = ptr[i+1]^ptr[i];
         end
     end
 
     assign ptr_next = ptr + 1;
     assign full_i = ptr_g_next == {~ptr_g_in[(SIZE):(SIZE-1)], ptr_g_in[(SIZE-2):0]};
     assign full = full_i;
-    assign ptr_g_out = ptr_g;
+    assign ptr_g_out = ptr_g_next;
     assign ptr_b_out = ptr;
 endmodule

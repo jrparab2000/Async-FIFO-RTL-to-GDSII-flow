@@ -20,22 +20,22 @@ module rd_ptr #(parameter SIZE = 8) (
         else begin
             if(!empty_i && rd_en) begin
                 ptr <= ptr_next;
-                ptr_g <= ptr_g_next;
+                // ptr_g <= ptr_g_next;
             end
         end
     end
 
     always@(*) begin
-        ptr_g_next[SIZE] = ptr_next[SIZE];
+        ptr_g_next[SIZE] = ptr[SIZE];
         for(int i = (SIZE-1); i >= 0; i--) begin
-            ptr_g_next[i] = ptr_next[i+1]^ptr_next[i];
+            ptr_g_next[i] = ptr[i+1]^ptr[i];
         end
     end
 
     assign ptr_next = ptr + 1;
     assign empty_i = ptr_g_next == ptr_g_in;
     assign empty = empty_i;
-    assign ptr_g_out = ptr_g;
+    assign ptr_g_out = ptr_g_next;
     assign ptr_b_out = ptr;
 
 endmodule
