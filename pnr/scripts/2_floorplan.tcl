@@ -5,7 +5,7 @@
 
 # 1. Load the core database from Step 1
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/../config.tcl"]
+source [file normalize "${script_dir}/config.tcl"]
 
 puts "========================================================================"
 puts " [PnR-STEP 2] Executing Floorplan, Macro Placement & PDN"

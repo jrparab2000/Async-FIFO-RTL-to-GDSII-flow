@@ -18,10 +18,10 @@
 # 1. CLOCK DEFINITIONS
 # ==============================================================================
 # Define the Write Clock (e.g., 100 MHz / 10ns period)
-create_clock -name wclk_clk -period 10.0 [get_ports wclk]
+create_clock -name wclk_clk -period 20.0 [get_ports wclk]
 
 # Define the Read Clock (e.g., 50 MHz / 20ns period)
-create_clock -name rclk_clk -period 20.0 [get_ports rclk]
+create_clock -name rclk_clk -period 40.0 [get_ports rclk]
 
 # ==============================================================================
 # 2. CLOCK UNCERTAINTY & JITTER

@@ -5,7 +5,7 @@
 
 # 1. Load the core database from Step 2
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/../config.tcl"]
+source [file normalize "${script_dir}/config.tcl"]
 
 puts "========================================================================"
 puts " [PnR-STEP 3] Executing Standard Cell Placement for: $::env(DESIGN_NAME)"
@@ -81,6 +81,23 @@ report_worst_slack -max -digits 3
 report_tns -digits 3
 report_check_types -max_skew -max_capacitance -max_fanout -violators
 
+set report_output ""
+
+tee -variable report_output {
+    report_check_types -max_skew -max_capacitance -max_fanout -violators
+}
+if {[string match "*(VIOLATED)*" $report_output]} {
+    puts "Violations detected! Running repair_design..."
+    
+    repair_design
+    detailed_placement
+    report_worst_slack -min -digits 3
+    report_worst_slack -max -digits 3
+    report_tns -digits 3
+    report_check_types -max_skew -max_capacitance -max_fanout -violators
+} else {
+    puts "No violations found. Skipping repair_design."
+}
 # 7. Save Progress Checkpoint
 puts "\[OR-FLOW] Writing Placement Database Checkpoint..."
 write_db [file normalize "${::env(RESULTS_DIR)}/3_placement.odb"]

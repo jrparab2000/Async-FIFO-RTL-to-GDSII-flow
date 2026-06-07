@@ -22,11 +22,12 @@ SYNTH_DIR = synth
 STA_DIR   = sta
 LINT_DIR = lint
 SIM_DIR = sim
+PNR_DIR = pnr
 
-.PHONY: all synth sta lint clean sim
+.PHONY: all synth sta lint clean sim pnr
 
 # Default target runs the entire synthesis and STA flow
-all: clean lint synth sta sim
+all: clean lint synth sta sim pnr
 
 # Call synthesis sub-makefile
 synth:
@@ -41,6 +42,9 @@ lint:
 
 sim:
 	$(MAKE) -C $(SIM_DIR) run_cli
+
+pnr:
+	$(MAKE) -C $(PNR_DIR) all
 
 # Clean both synthesis and STA directories
 clean:

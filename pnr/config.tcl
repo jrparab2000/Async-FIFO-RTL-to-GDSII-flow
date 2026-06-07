@@ -99,8 +99,11 @@ set ::env(DETAIL_PAD_IN_SITES)    2;
 
 # Clock Tree Synthesis Controls (TritonCTS Flags)
 set ::env(CTS_CLK_BUFFERS)       "sky130_fd_sc_hd__clkbuf_4 sky130_fd_sc_hd__clkbuf_8"
-set ::env(CTS_MAX_CAP)           0.25;       # Max load capacitance (pF)
-set ::env(CTS_MAX_SLEW)          0.75;       # Max slew target (ns)
+set ::env(CTS_MAX_CAP)           0.25e-12;       # Max load capacitance (pF)
+set ::env(CTS_MAX_SLEW)          0.75e-9;       # Max slew target (ns)
+set ::env(CTS_CLUSTER_DIAMETER)  100;
+set ::env(REPAIR_TIMING_USE_GRT_PARASITICS) 0;  # If set to 1 then will takes longer to get parasitics
+set ::env(ROUTING_ITERATIONS) 100; # number of iteration you want to do for routing
 
 # Routing Layer Limits
 set ::env(MIN_ROUTING_LAYER)     "met1"

@@ -9,12 +9,13 @@ export CONFIG_TCL     := $(PNR_ROOT)/config.tcl
 
 # --- Added for config.tcl Synchronization ---
 export SYNTH_NETLIST  := $(PNR_ROOT)/../synth/synthesis/async_fifo_synth_fast.v
-export DESIGN_SDC     := $(PNR_ROOT)/../sta/constraint/test_mode.sdc
+export DESIGN_SDC     := $(PNR_ROOT)/../sta/constraint/func_mode.sdc
 # --------------------------------------------
 
 # Output Subdirectories
 export RESULTS_DIR    := $(PNR_ROOT)/results
 export LOGS_DIR       := $(PNR_ROOT)/logs
+export NETLIST		  := $(PNR_ROOT)/netlist
 export SCRIPT_DIR     := $(PNR_ROOT)/scripts
 
 # Shared PDK Library Paths

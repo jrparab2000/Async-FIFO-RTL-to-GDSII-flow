@@ -5,7 +5,7 @@
 
 # 1. Source the global configuration parameters
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/../config.tcl"]
+source [file normalize "${script_dir}/config.tcl"]
 
 puts "========================================================================"
 puts " [PnR-STEP 1] Initializing Database for Design: $::env(DESIGN_NAME)"

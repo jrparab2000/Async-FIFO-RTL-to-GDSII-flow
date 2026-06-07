@@ -17,7 +17,7 @@ all: setup_dirs signoff
 
 # Quick setup recipe to ensure environment infrastructure directories exist
 setup_dirs:
-	@mkdir -p $(RESULTS_DIR) $(LOGS_DIR)
+	@mkdir -p $(RESULTS_DIR) $(LOGS_DIR) $(NETLIST)
 
 # ------------------------------------------------------------------------------
 # Step-by-Step Layout Execution Targets
