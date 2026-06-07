@@ -14,8 +14,9 @@ export DESIGN_SDC     := $(PNR_ROOT)/../sta/constraint/func_mode.sdc
 
 # Output Subdirectories
 export RESULTS_DIR    := $(PNR_ROOT)/results
+export BACKUPS_DIR	  := $(PNR_ROOT)/backups
 export LOGS_DIR       := $(PNR_ROOT)/logs
-export NETLIST		  := $(PNR_ROOT)/netlist
+export NETLIST_DIR	  := $(PNR_ROOT)/netlist
 export SCRIPT_DIR     := $(PNR_ROOT)/scripts
 
 # Shared PDK Library Paths

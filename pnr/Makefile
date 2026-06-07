@@ -17,7 +17,7 @@ all: setup_dirs signoff
 
 # Quick setup recipe to ensure environment infrastructure directories exist
 setup_dirs:
-	@mkdir -p $(RESULTS_DIR) $(LOGS_DIR) $(NETLIST)
+	@mkdir -p $(RESULTS_DIR) $(LOGS_DIR) $(NETLIST_DIR) $(BACKUPS_DIR) $(LOGS_DIR)
 
 # ------------------------------------------------------------------------------
 # Step-by-Step Layout Execution Targets
@@ -70,7 +70,7 @@ $(DB_FINAL): $(SIGNOFF_TCL) $(DB_PARASITICS)
 # ------------------------------------------------------------------------------
 
 # Interactive Visualizer: Opens the OpenROAD GUI with the latest successful step
-gui:
+gui: setup_dirs
 	@echo "==> Launching interactive layout database visualizer..."
 	@if [ -f $(DB_ROUTING) ]; then \
 		$(OPENROAD_EXE) -gui $(DB_ROUTING); \
@@ -85,4 +85,4 @@ gui:
 # Wipe out intermediate results and system logs to reset the environment
 clean:
 	@echo "==> Purging layout generation logs and intermediate targets..."
-	rm -rf $(RESULTS_DIR) $(LOGS_DIR)
+	rm -rf $(RESULTS_DIR) $(LOGS_DIR) $(NETLIST_DIR) $(BACKUPS_DIR) $(LOGS_DIR)

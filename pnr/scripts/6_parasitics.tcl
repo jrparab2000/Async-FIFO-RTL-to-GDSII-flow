@@ -5,14 +5,19 @@
 
 # 1. Load the core database from Step 5
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/config.tcl"]
+source [file normalize "config.tcl"]
 
 puts "========================================================================"
-puts " [PnR-STEP 6] Extracting Wire Parasitics (RCX) for: $::env(DESIGN_NAME)"
+puts " \[PnR-STEP 6] Extracting Wire Parasitics (RCX) for: $::env(DESIGN_NAME)"
 puts "========================================================================"
 
-puts "\[OR-FLOW] Loading Step 5 Database Checkpoint..."
-read_db [file normalize "${::env(RESULTS_DIR)}/5_routing.odb"]
+set current_block [ord::get_db_block]
+if {$current_block == "NULL" || $current_block == ""} {
+    puts "\[OR-FLOW] Loading Step 5 Database Checkpoint..."
+    read_db [file normalize "${::env(BACKUPS_DIR)}/5_routing.odb"]
+} else {
+    puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
+}
 
 # 2. Define Extraction Context Process Corner
 # We map the parasitic engine corner to match our routing layer constraints
@@ -46,7 +51,8 @@ report_worst_slack -max -digits 3
 report_tns -digits 3
 report_check_types -max_skew -max_capacitance -max_fanout -violators -digits 3
 report_clock_skew -digits 3
-report_power -corner $power_corner
+report_power
+report_design_area
 
 utl::metric "DRT::worst_slack_min" [sta::worst_slack -min]
 utl::metric "DRT::worst_slack_max" [sta::worst_slack -max]
@@ -56,8 +62,8 @@ utl::metric "DRT::clock_skew" [expr abs([sta::worst_clock_skew -setup])]
 # 5. Save Progress Checkpoint
 # We write out a final routed database containing the annotated RC network properties
 puts "\[OR-FLOW] Writing Parasitics Database Checkpoint..."
-write_db [file normalize "${::env(RESULTS_DIR)}/6_parasitics.odb"]
+write_db [file normalize "${::env(BACKUPS_DIR)}/6_parasitics.odb"]
 
 puts "========================================================================"
-puts " [SUCCESS] Step 6 Complete. Parasitic SPEF Matrix Successfully Generated."
+puts " \[SUCCESS] Step 6 Complete. Parasitic SPEF Matrix Successfully Generated."
 puts "========================================================================"

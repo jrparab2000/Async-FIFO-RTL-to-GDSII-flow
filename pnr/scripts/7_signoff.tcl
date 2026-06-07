@@ -5,15 +5,19 @@
 
 # 1. Load the core database from Step 6
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/config.tcl"]
+source [file normalize "config.tcl"]
 
 puts "========================================================================"
-puts " [PnR-STEP 7] Executing Final Tape-Out Sign-Off for: $::env(DESIGN_NAME)"
+puts " \[PnR-STEP 7] Executing Final Tape-Out Sign-Off for: $::env(DESIGN_NAME)"
 puts "========================================================================"
 
-puts "\[OR-FLOW] Loading Step 6 Database Checkpoint..."
-read_db [file normalize "${::env(RESULTS_DIR)}/6_parasitics.odb"]
-
+set current_block [ord::get_db_block]
+if {$current_block == "NULL" || $current_block == ""} {
+    puts "\[OR-FLOW] Loading Step 6 Database Checkpoint..."
+    read_db [file normalize "${::env(BACKUPS_DIR)}/6_parasitics.odb"]
+} else {
+    puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
+}
 # 2. Inject Physical Filler Cells
 # Fills any open spacing gaps inside standard cell rows to maintain a continuous 
 # well layout and keep power grid connectivity completely unbroken.
@@ -59,6 +63,6 @@ puts "\[OR-FLOW] Streaming out production blueprint layout (GDSII) file..."
 
 
 puts "========================================================================"
-puts " [SUCCESS] PnR Flow Complete! Tapout Layout Target Generated."
-puts " [OUTPUT] Final GDSII blueprint: $gds_output"
+puts " \[SUCCESS] PnR Flow Complete! Tapout Layout Target Generated."
+puts " \[OUTPUT] Final GDSII blueprint: $gds_output"
 puts "========================================================================"

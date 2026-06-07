@@ -5,17 +5,22 @@
 
 # 1. Load the core database from Step 1
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/config.tcl"]
+source [file normalize "config.tcl"]
 
 puts "========================================================================"
-puts " [PnR-STEP 2] Executing Floorplan, Macro Placement & PDN"
+puts " \[PnR-STEP 2\] Executing Floorplan, Macro Placement & PDN"
 puts "========================================================================"
 
-puts "\[OR-FLOW] Loading Step 1 Database Checkpoint..."
-read_db [file normalize "${::env(RESULTS_DIR)}/1_init.odb"]
+set current_block [ord::get_db_block]
+if {$current_block == "NULL" || $current_block == ""} {
+    puts "\[OR-FLOW\] Loading Step 1 Database Checkpoint..."
+    read_db [file normalize "${::env(BACKUPS_DIR)}/1_init.odb"]
+} else {
+     puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
+}
 
 # 2. Initialize the Floorplan Box
-puts "\[OR-FLOW] Initializing Core and Die Area Boundaries..."
+puts "\[OR-FLOW\] Initializing Core and Die Area Boundaries..."
 initialize_floorplan \
     -utilization $::env(CORE_UTILIZATION) \
     -aspect_ratio $::env(ASPECT_RATIO) \
@@ -38,7 +43,7 @@ source $::env(TRACK_FILE)
 remove_buffers
 
 # 4. Automatic Pin Placement
-puts "\[OR-FLOW] Placing I/O Boundary Pins via ioPlacer..."
+puts "\[OR-FLOW\] Placing I/O Boundary Pins via ioPlacer..."
 place_pins \
     -hor_layer $::env(PIN_IO_LAYER_H) \
     -ver_layer $::env(PIN_IO_LAYER_V) 
@@ -58,7 +63,7 @@ foreach inst $insts {
 }
 
 if { $has_macros } {
-    puts "\[OR-FLOW] Macros detected. Executing Macro Placement Optimization..."
+    puts "\[OR-FLOW\] Macros detected. Executing Macro Placement Optimization..."
     
     # Run OpenROAD's automated macro placer to find optimal corners for SRAMs
     macro_placement
@@ -74,20 +79,20 @@ if { $has_macros } {
             $inst setPlacementStatus "FIRM"
         }
     }
-    puts "\[OR-FLOW] Macros successfully placed, padded, and locked down."
+    puts "\[OR-FLOW\] Macros successfully placed, padded, and locked down."
 } else {
-    puts "\[OR-FLOW] No hard macros detected in netlist. Continuing flat standard cell flow..."
+    puts "\[OR-FLOW\] No hard macros detected in netlist. Continuing flat standard cell flow..."
 }
 
 # 5. Insert Well-Taps and Endcaps
-puts "\[OR-FLOW] Injecting Substrate Well-Taps and Row Endcaps..."
+puts "\[OR-FLOW\] Injecting Substrate Well-Taps and Row Endcaps..."
 tapcell \
     -distance $::env(TAP_DIST) \
     -tapcell_master $::env(TAP_CELL_NAME) \
     -endcap_master "sky130_fd_sc_hd__decap_3"
 
 # 6. Native Power Distribution Network (PDN) Generation
-puts "\[OR-FLOW] Generating VDD and VSS Power Distribution Grid..."
+puts "\[OR-FLOW\] Generating VDD and VSS Power Distribution Grid..."
 # below are the power net parameter manually inserted but can use tech node's .pdn.tcl
 # add_global_connection -net $::env(VDD_NETS) -pin_pattern "^VPWR$" -power
 # add_global_connection -net $::env(VDD_NETS) -pin_pattern "^VPB$"
@@ -115,9 +120,9 @@ source $::env(PDN_TCL)
 pdngen
 
 # 7. Save Progress Checkpoint
-puts "\[OR-FLOW] Writing Floorplan Database Checkpoint..."
-write_db [file normalize "${::env(RESULTS_DIR)}/2_floorplan.odb"]
+puts "\[OR-FLOW\] Writing Floorplan Database Checkpoint..."
+write_db [file normalize "${::env(BACKUPS_DIR)}/2_floorplan.odb"]
 
 puts "========================================================================"
-puts " [SUCCESS] Step 2 Complete. Floorplan with Macro Constraints Formed."
+puts " \[SUCCESS\] Step 2 Complete. Floorplan with Macro Constraints Formed."
 puts "========================================================================"

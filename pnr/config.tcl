@@ -10,10 +10,10 @@ set ::env(DESIGN_NAME)          $env(DESIGN_NAME)
 set ::env(TOP_LEVEL_MODULE)     $env(DESIGN_NAME)
 
 # Paths resolved directly from your Makefile configurations
-set ::env(SYNTH_NETLIST)        $env(SYNTH_NETLIST)
-set ::env(DESIGN_SDC)           $env(DESIGN_SDC)
-set ::env(RESULTS_DIR)          $env(RESULTS_DIR)
-set ::env(LOGS_DIR)             $env(LOGS_DIR)
+# set ::env(SYNTH_NETLIST)        $env(SYNTH_NETLIST)
+# set ::env(DESIGN_SDC)           $env(DESIGN_SDC)
+# set ::env(RESULTS_DIR)          $env(RESULTS_DIR)
+# set ::env(LOGS_DIR)             $env(LOGS_DIR)
 
 # ------------------------------------------------------------------------------
 # 2. PDK & Technology Library Configurations (Sky130HD Reference)
@@ -26,9 +26,9 @@ set ::env(TECH_LEF)             "${pdk_root}/sky130hd.tlef"
 set ::env(CELL_LEFS)            [list "/usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"]
 
 # Timing Corners (Matching your front-end Makefile paths)
-set ::env(LIB_SLOW)             $env(LIB_SLOW)
-set ::env(LIB_TYP)              $env(LIB_TYP)
-set ::env(LIB_FAST)             $env(LIB_FAST)
+# set ::env(LIB_SLOW)             $env(LIB_SLOW)
+# set ::env(LIB_TYP)              $env(LIB_TYP)
+# set ::env(LIB_FAST)             $env(LIB_FAST)
 
 # RC Parasitic Sign-off Technology Files (OpenRCX rules)
 set ::env(RCX_RULES_MAX)        "${pdk_root}/sky130hd.rcx_rules"
@@ -41,7 +41,7 @@ set ::env(PDN_TCL)              "${pdk_root}/sky130hd.pdn.tcl"
 # ------------------------------------------------------------------------------
 # 3. Floorplan & Power Grid (PDN) Parameters
 # ------------------------------------------------------------------------------
-set ::env(CORE_UTILIZATION)     40.0
+set ::env(CORE_UTILIZATION)     50
 set ::env(ASPECT_RATIO)         1.0
 
 # Core margins (spacing boundary between rows and outer die edge in microns)
@@ -103,11 +103,11 @@ set ::env(CTS_MAX_CAP)           0.25e-12;       # Max load capacitance (pF)
 set ::env(CTS_MAX_SLEW)          0.75e-9;       # Max slew target (ns)
 set ::env(CTS_CLUSTER_DIAMETER)  100;
 set ::env(REPAIR_TIMING_USE_GRT_PARASITICS) 0;  # If set to 1 then will takes longer to get parasitics
-set ::env(ROUTING_ITERATIONS) 100; # number of iteration you want to do for routing
 
 # Routing Layer Limits
 set ::env(MIN_ROUTING_LAYER)     "met1"
 set ::env(MAX_ROUTING_LAYER)     "met5"
+set ::env(ROUTING_ITERATIONS)    100; # number of iteration you want to do for routing
 
 # Detail Router Controls
 set ::env(DRT_THREADS)           4

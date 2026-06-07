@@ -5,14 +5,19 @@
 
 # 1. Load the core database from Step 4
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/config.tcl"]
+source [file normalize "config.tcl"]
 
 puts "========================================================================"
-puts " [PnR-STEP 5] Executing Metal Layer Routing for: $::env(DESIGN_NAME)"
+puts " \[PnR-STEP 5] Executing Metal Layer Routing for: $::env(DESIGN_NAME)"
 puts "========================================================================"
 
-puts "\[OR-FLOW] Loading Step 4 Database Checkpoint..."
-read_db [file normalize "${::env(RESULTS_DIR)}/4_cts.odb"]
+set current_block [ord::get_db_block]
+if {$current_block == "NULL" || $current_block == ""} {
+    puts "\[OR-FLOW] Loading Step 4 Database Checkpoint..."
+    read_db [file normalize "${::env(BACKUPS_DIR)}/4_cts.odb"]
+} else {
+    puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
+}
 
 # 2. Configure Global Router (FastRoute) Parameters
 # Restrict routing to the metal layers defined in our config.tcl
@@ -30,7 +35,7 @@ global_route\
     -guide_file $route_guide \
     -congestion_iterations $::env(ROUTING_ITERATIONS)
 
-write_verilog -remove_cells $::env(FILL_CELLS) ${::env(NETLIST)}/${::env(TOP_LEVEL_MODULE)}_routing.v
+write_verilog -remove_cells $::env(FILL_CELLS) ${::env(NETLIST_DIR)}/${::env(TOP_LEVEL_MODULE)}_routing.v
 
 check_antennas
 
@@ -53,8 +58,8 @@ detailed_route \
     -output_maze [file normalize "${::env(LOGS_DIR)}/5_route_maze.log"] \
     -no_pin_access \
     -save_guide_updates \
-    -verbose 0 \
-    -iterations $::env(DRT_REPAIR_ITERATIONS)
+    -verbose 0
+    # -iterations $::env(DRT_REPAIR_ITERATIONS)
 
 write_guides [file normalize "${::env(LOGS_DIR)}/5_route_guides.mod"]
 
@@ -69,9 +74,9 @@ check_antennas
 
 # 7. Save Progress Checkpoint
 puts "\[OR-FLOW] Writing Routing Database Checkpoint..."
-write_db [file normalize "${::env(RESULTS_DIR)}/5_routing.odb"]
-write_def [file normalize "${::env(LOGS_DIR)}/5_route_DEF.def"]
+write_db [file normalize "${::env(BACKUPS_DIR)}/5_routing.odb"]
+write_def [file normalize "${::env(RESULTS_DIR)}/5_route_DEF.def"]
 
 puts "========================================================================"
-puts " [SUCCESS] Step 5 Complete. Copper Interconnect Trackways Implemented."
+puts " \[SUCCESS] Step 5 Complete. Copper Interconnect Trackways Implemented."
 puts "========================================================================"

@@ -5,10 +5,10 @@
 
 # 1. Source the global configuration parameters
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/config.tcl"]
+source [file normalize "config.tcl"]
 
 puts "========================================================================"
-puts " [PnR-STEP 1] Initializing Database for Design: $::env(DESIGN_NAME)"
+puts " \[PnR-STEP 1] Initializing Database for Design: $::env(DESIGN_NAME)"
 puts "========================================================================"
 
 # 2. Read Timing/Logical Libraries (.lib)
@@ -46,8 +46,8 @@ if { [file exists $::env(DESIGN_SDC)] } {
 # 7. Write Out Intermediate OpenROAD Database Checkpoint (.odb)
 # This file lets the next script pick up exactly where this one left off
 puts "\[OR-FLOW] Writing Initialization Database Checkpoint..."
-write_db [file normalize "${::env(RESULTS_DIR)}/1_init.odb"]
+write_db [file normalize "${::env(BACKUPS_DIR)}/1_init.odb"]
 
 puts "========================================================================"
-puts " [SUCCESS] Step 1 Complete. Database Checkpoint Saved."
+puts " \[SUCCESS] Step 1 Complete. Database Checkpoint Saved."
 puts "========================================================================"

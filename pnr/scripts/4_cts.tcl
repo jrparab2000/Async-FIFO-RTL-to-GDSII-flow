@@ -5,15 +5,19 @@
 
 # 1. Load the core database from Step 3
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/config.tcl"]
+source [file normalize "config.tcl"]
 
 puts "========================================================================"
-puts " [PnR-STEP 4] Executing Clock Tree Synthesis for: $::env(DESIGN_NAME)"
+puts " \[PnR-STEP 4] Executing Clock Tree Synthesis for: $::env(DESIGN_NAME)"
 puts "========================================================================"
 
-puts "\[OR-FLOW] Loading Step 3 Database Checkpoint..."
-read_db [file normalize "${::env(RESULTS_DIR)}/3_placement.odb"]
-
+set current_block [ord::get_db_block]
+if {$current_block == "NULL" || $current_block == ""} {
+    puts "\[OR-FLOW] Loading Step 3 Database Checkpoint..."
+    read_db [file normalize "${::env(BACKUPS_DIR)}/3_placement.odb"]
+} else {
+    puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
+}
 # 2. Configure TritonCTS Hyperparameters
 # We specify which buffers from the Sky130 HD library are allowed to be used for the clock network
 puts "\[OR-FLOW] Configuring Clock Tree Root Buffers..."
@@ -87,13 +91,13 @@ if {[string match "*(VIOLATED)*" $report_output]} {
 
 # 6. Save Progress Checkpoint
 puts "\[OR-FLOW] Writing CTS Database Checkpoint..."
-write_db [file normalize "${::env(RESULTS_DIR)}/4_cts.odb"]
+write_db [file normalize "${::env(BACKUPS_DIR)}/4_cts.odb"]
 
 # 7. Saving Verilog file with clock tree
 puts "\[OR-FLOW] Writing Verliog file..."
 
-write_verilog ${::env(NETLIST)}/${::env(TOP_LEVEL_MODULE)}_cts.v
+write_verilog ${::env(NETLIST_DIR)}/${::env(TOP_LEVEL_MODULE)}_cts.v
 
 puts "========================================================================"
-puts " [SUCCESS] Step 4 Complete. Balanced Dual-Clock Networks Built."
+puts " \[SUCCESS] Step 4 Complete. Balanced Dual-Clock Networks Built."
 puts "========================================================================"

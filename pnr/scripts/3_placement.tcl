@@ -5,15 +5,19 @@
 
 # 1. Load the core database from Step 2
 set script_dir [file dirname [file normalize [info script]]]
-source [file normalize "${script_dir}/config.tcl"]
+source [file normalize "config.tcl"]
 
 puts "========================================================================"
-puts " [PnR-STEP 3] Executing Standard Cell Placement for: $::env(DESIGN_NAME)"
+puts " \[PnR-STEP 3] Executing Standard Cell Placement for: $::env(DESIGN_NAME)"
 puts "========================================================================"
 
-puts "\[OR-FLOW] Loading Step 2 Database Checkpoint..."
-read_db [file normalize "${::env(RESULTS_DIR)}/2_floorplan.odb"]
-
+set current_block [ord::get_db_block]
+if {$current_block == "NULL" || $current_block == ""} {
+    puts "\[OR-FLOW] Loading Step 2 Database Checkpoint..."
+    read_db [file normalize "${::env(BACKUPS_DIR)}/2_floorplan.odb"]
+} else {
+     puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
+}
 # 2. Apply Placement Cell Padding
 # This inserts an invisible buffer margin around cells to prevent routing 
 # congestion in logic-dense structures like an ASYNC_FIFO
@@ -100,8 +104,8 @@ if {[string match "*(VIOLATED)*" $report_output]} {
 }
 # 7. Save Progress Checkpoint
 puts "\[OR-FLOW] Writing Placement Database Checkpoint..."
-write_db [file normalize "${::env(RESULTS_DIR)}/3_placement.odb"]
+write_db [file normalize "${::env(BACKUPS_DIR)}/3_placement.odb"]
 
 puts "========================================================================"
-puts " [SUCCESS] Step 3 Complete. Logic Gates Legalized on Rows."
+puts " \[SUCCESS] Step 3 Complete. Logic Gates Legalized on Rows."
 puts "========================================================================"
