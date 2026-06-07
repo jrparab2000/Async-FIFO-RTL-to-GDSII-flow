@@ -15,6 +15,10 @@ set current_block [ord::get_db_block]
 if {$current_block == "NULL" || $current_block == ""} {
     puts "\[OR-FLOW] Loading Step 6 Database Checkpoint..."
     read_db [file normalize "${::env(BACKUPS_DIR)}/6_parasitics.odb"]
+    puts "\[OR-FLOW] Loading Logical Timing Libraries..."
+    read_liberty $::env(LIB_SLOW)
+    read_liberty $::env(LIB_TYP)
+    read_liberty $::env(LIB_FAST)
 } else {
     puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
 }

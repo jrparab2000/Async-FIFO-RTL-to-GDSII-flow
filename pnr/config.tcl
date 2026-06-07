@@ -41,7 +41,7 @@ set ::env(PDN_TCL)              "${pdk_root}/sky130hd.pdn.tcl"
 # ------------------------------------------------------------------------------
 # 3. Floorplan & Power Grid (PDN) Parameters
 # ------------------------------------------------------------------------------
-set ::env(CORE_UTILIZATION)     50
+set ::env(CORE_UTILIZATION)     40
 set ::env(ASPECT_RATIO)         1.0
 
 # Core margins (spacing boundary between rows and outer die edge in microns)

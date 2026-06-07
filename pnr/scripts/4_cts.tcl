@@ -15,6 +15,10 @@ set current_block [ord::get_db_block]
 if {$current_block == "NULL" || $current_block == ""} {
     puts "\[OR-FLOW] Loading Step 3 Database Checkpoint..."
     read_db [file normalize "${::env(BACKUPS_DIR)}/3_placement.odb"]
+    puts "\[OR-FLOW] Loading Logical Timing Libraries..."
+    read_liberty $::env(LIB_SLOW)
+    read_liberty $::env(LIB_TYP)
+    read_liberty $::env(LIB_FAST)
 } else {
     puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
 }
@@ -53,7 +57,9 @@ puts "\[OR-FLOW] Updating timing model to use Propagated Clock Delays..."
 set_propagated_clock [all_clocks]
 
 puts "\[OR-FLOW] Running Post-CTS Static Timing Analysis (STA) summary..."
-
+set_wire_rc -signal -layer $::env(WIRE_RC_LAYER)
+set_wire_rc -clock -layer $::env(WIRE_RC_LAYER_CLK)
+set_dont_use $::env(DONT_USE)
 
 if { $::env(REPAIR_TIMING_USE_GRT_PARASITICS) } {
     global_route -congestion_iterations $::env(ROUTING_ITERATIONS)
