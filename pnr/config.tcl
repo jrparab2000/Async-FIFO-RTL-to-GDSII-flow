@@ -19,11 +19,14 @@ set ::env(TOP_LEVEL_MODULE)     $env(DESIGN_NAME)
 # 2. PDK & Technology Library Configurations (Sky130HD Reference)
 # ------------------------------------------------------------------------------
 # Set your central PDK root directory
-set pdk_root                    "/home/jrparab/OpenROAD/test/sky130hd"
+set pdk_root                    "/home/jrparab/OpenROAD-flow-scripts/flow/platforms/sky130hd"
 
 # Physical Library Definitions (LEF)
-set ::env(TECH_LEF)             "${pdk_root}/sky130hd.tlef"
-set ::env(CELL_LEFS)            [list "/usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"]
+set ::env(TECH_LEF)             "${pdk_root}/lef/sky130_fd_sc_hd.tlef"
+# set ::env(TECH_LEF)             "/home/jrparab/OpenROAD/test/sky130hd/sky130hd.tlef"
+# set ::env(CELL_LEFS)            [list "/usr/local/share/pdk/sky130A/libs.ref/sky130_fd_sc_hd/lef/sky130_fd_sc_hd.lef"]
+set ::env(CELL_LEFS)            [list "${pdk_root}/lef/sky130_fd_sc_hd_merged.lef"]
+set ::env(TECH_GDS)             [list "${pdk_root}/gds/sky130_fd_sc_hd.gds"]
 
 # Timing Corners (Matching your front-end Makefile paths)
 # set ::env(LIB_SLOW)             $env(LIB_SLOW)
@@ -31,12 +34,16 @@ set ::env(CELL_LEFS)            [list "/usr/local/share/pdk/sky130A/libs.ref/sky
 # set ::env(LIB_FAST)             $env(LIB_FAST)
 
 # RC Parasitic Sign-off Technology Files (OpenRCX rules)
-set ::env(RCX_RULES_MAX)        "${pdk_root}/sky130hd.rcx_rules"
+set ::env(RCX_RULES_MAX)        "${pdk_root}/rcx_patterns.rules"
 
 # Wire information
-set ::env(TRACK_FILE)           "${pdk_root}/sky130hd.tracks"
+set ::env(TRACK_FILE)           "${pdk_root}/make_tracks.tcl"
 
-set ::env(PDN_TCL)              "${pdk_root}/sky130hd.pdn.tcl"
+set ::env(PDN_TCL)              "${pdk_root}/pdn.tcl"
+
+set ::env(KLAYOUT_LYT)          "${pdk_root}/sky130hd.lyt"
+
+set ::env(DEF_TO_STREAM)        "${pdk_root}/../../util/def2stream.py"
 
 # ------------------------------------------------------------------------------
 # 3. Floorplan & Power Grid (PDN) Parameters
@@ -84,7 +91,7 @@ set ::env(GLOBAL_ROUTING_LAYER_ADJUSTMENTS) {
 }
 
 #detailed Placement paremeters
-set ::env(LAYER_RC_FILE)        "${pdk_root}/sky130hd.rc"
+set ::env(LAYER_RC_FILE)        "${pdk_root}/setRC.tcl"
 set ::env(WIRE_RC_LAYER)        "met2"
 set ::env(WIRE_RC_LAYER_CLK)    "met5"
 
@@ -94,11 +101,40 @@ set ::env(DONT_USE) {
     sky130_fd_sc_hd__dlygate4sd2_*
     sky130_fd_sc_hd__dlygate4sd3_*
     sky130_fd_sc_hd__probe_p_*
+    sky130_fd_sc_hd__inv_6
+    sky130_fd_sc_hd__inv_4
+    sky130_fd_sc_hd__inv_2
+    sky130_fd_sc_hd__inv_1
+    sky130_fd_sc_hd__clkinv_4
+    sky130_fd_sc_hd__clkinv_2
+    sky130_fd_sc_hd__clkinv_1
+    sky130_fd_sc_hd__clkinvlp_4
+    sky130_fd_sc_hd__clkinvlp_2
+    sky130_fd_sc_hd__bufinv_8
+    sky130_fd_sc_hd__bufinv_16
 }
 set ::env(DETAIL_PAD_IN_SITES)    2;
 
 # Clock Tree Synthesis Controls (TritonCTS Flags)
-set ::env(CTS_CLK_BUFFERS)       "sky130_fd_sc_hd__clkbuf_4 sky130_fd_sc_hd__clkbuf_8"
+# set ::env(CTS_CLK_BUFFERS)       [list \
+#         "sky130_fd_sc_hd__clkbuf_1" \
+#         "sky130_fd_sc_hd__clkbuf_2" \
+#         "sky130_fd_sc_hd__clkbuf_4" \
+#         "sky130_fd_sc_hd__clkbuf_8" \
+#         "sky130_fd_sc_hd__buf_1" \
+#         "sky130_fd_sc_hd__buf_2" \
+#         "sky130_fd_sc_hd__buf_4" \
+#         "sky130_fd_sc_hd__buf_8" \
+#         "sky130_fd_sc_hd__inv_1" \
+#         "sky130_fd_sc_hd__inv_2" \
+#         "sky130_fd_sc_hd__inv_4" \
+#         "sky130_fd_sc_hd__inv_8" \
+#     ]
+
+set ::env(CTS_CLK_BUFFERS)       [list \
+        "sky130_fd_sc_hd__clkbuf_2" \
+        "sky130_fd_sc_hd__clkbuf_4"
+    ]
 set ::env(CTS_MAX_CAP)           0.25e-12;       # Max load capacitance (pF)
 set ::env(CTS_MAX_SLEW)          0.75e-9;       # Max slew target (ns)
 set ::env(CTS_CLUSTER_DIAMETER)  100;

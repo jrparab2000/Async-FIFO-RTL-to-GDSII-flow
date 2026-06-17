@@ -19,6 +19,12 @@ if {$current_block == "NULL" || $current_block == ""} {
     read_liberty $::env(LIB_SLOW)
     read_liberty $::env(LIB_TYP)
     read_liberty $::env(LIB_FAST)
+    if { [file exists $::env(DESIGN_SDC)] } {
+    puts "\[OR-FLOW] Loading Static Timing Constraints ($::env(DESIGN_SDC))..."
+    read_sdc $::env(DESIGN_SDC)
+} else {
+    puts "\[WARNING] SDC file not found at $::env(DESIGN_SDC). Timing margins will not be constrained!"
+}
 } else {
     puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
 }
@@ -27,15 +33,26 @@ if {$current_block == "NULL" || $current_block == ""} {
 puts "\[OR-FLOW] Configuring Clock Tree Root Buffers..."
 # set_cts_buffer_list $::env(CTS_CLK_BUFFERS)
 repair_clock_inverters
-
+source $::env(LAYER_RC_FILE)
 # 3. Run Clock Tree Synthesis
 # TritonCTS will automatically detect the independent clock roots from your SDC file 
 # (e.g., your write clock and read clock) and synthesize balanced trees for both.
 puts "\[OR-FLOW] Synthesizing independent clock networks via TritonCTS..."
-# configure_cts_characterization \
-#     -max_slew $::env(CTS_MAX_SLEW) \
-#     -max_cap $::env(CTS_MAX_CAP)
-
+configure_cts_characterization \
+    -max_slew $::env(CTS_MAX_SLEW) \
+    -max_cap $::env(CTS_MAX_CAP)
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__inv_6]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__inv_4]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__inv_2]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__inv_1]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__clkinv_4]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__clkinv_2]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__clkinv_1]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__clkinvlp_4]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__clkinvlp_2]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__bufinv_8]
+# set_dont_use [get_lib_cells */sky130_fd_sc_hd__bufinv_16]
+set_dont_use $::env(DONT_USE)
 clock_tree_synthesis \
     -root_buf $::env(CTS_CLK_BUFFERS) \
     -buf_list $::env(CTS_CLK_BUFFERS) \
@@ -57,8 +74,8 @@ puts "\[OR-FLOW] Updating timing model to use Propagated Clock Delays..."
 set_propagated_clock [all_clocks]
 
 puts "\[OR-FLOW] Running Post-CTS Static Timing Analysis (STA) summary..."
-set_wire_rc -signal -layer $::env(WIRE_RC_LAYER)
-set_wire_rc -clock -layer $::env(WIRE_RC_LAYER_CLK)
+# set_wire_rc -signal -layer $::env(WIRE_RC_LAYER)
+# set_wire_rc -clock -layer $::env(WIRE_RC_LAYER_CLK)
 set_dont_use $::env(DONT_USE)
 
 if { $::env(REPAIR_TIMING_USE_GRT_PARASITICS) } {

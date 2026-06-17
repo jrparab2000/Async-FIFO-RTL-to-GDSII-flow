@@ -71,7 +71,7 @@ set_output_delay 3.0 -clock rclk_clk [get_ports data_out[*]]
 # the layout tool from placing the synchronizer flip-flops miles apart.
 
 # Max delay constraint for Write-to-Read pointer crossing (skew control)
-set_max_delay 10.0 -from [get_cells -hierarchical wtr_g_ptr*] -to [get_cells -hierarchical wtr_g_ptr_ff*] -datapath_only
+# set_max_delay 10.0 -from [get_cells -hierarchical wtr_g_ptr*] -to [get_cells -hierarchical wtr_g_ptr_ff*] -datapath_only
 
-# Max delay constraint for Read-to-Write pointer crossing (skew control)
-set_max_delay 20.0 -from [get_cells -hierarchical rd_g_ptr*] -to [get_cells -hierarchical rd_g_ptr_ff*] -datapath_only
+# # Max delay constraint for Read-to-Write pointer crossing (skew control)
+# set_max_delay 20.0 -from [get_cells -hierarchical rd_g_ptr*] -to [get_cells -hierarchical rd_g_ptr_ff*] -datapath_only

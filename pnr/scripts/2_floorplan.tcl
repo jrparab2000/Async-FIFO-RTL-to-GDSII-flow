@@ -19,6 +19,12 @@ if {$current_block == "NULL" || $current_block == ""} {
     read_liberty $::env(LIB_SLOW)
     read_liberty $::env(LIB_TYP)
     read_liberty $::env(LIB_FAST)
+    if { [file exists $::env(DESIGN_SDC)] } {
+    puts "\[OR-FLOW] Loading Static Timing Constraints ($::env(DESIGN_SDC))..."
+    read_sdc $::env(DESIGN_SDC)
+    } else {
+        puts "\[WARNING] SDC file not found at $::env(DESIGN_SDC). Timing margins will not be constrained!"
+    }
 } else {
      puts "\[OR-FLOW] Design database is already loaded ($current_block). Skipping read_db to avoid collision."
 }

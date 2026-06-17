@@ -72,15 +72,7 @@ $(DB_FINAL): $(SIGNOFF_TCL) $(DB_PARASITICS)
 # Interactive Visualizer: Opens the OpenROAD GUI with the latest successful step
 gui: setup_dirs
 	@echo "==> Launching interactive layout database visualizer..."
-	@if [ -f $(DB_ROUTING) ]; then \
-		$(OPENROAD_EXE) -gui $(DB_ROUTING); \
-	elif [ -f $(DB_PLACEMENT) ]; then \
-		$(OPENROAD_EXE) -gui $(DB_PLACEMENT); \
-	elif [ -f $(DB_FLOORPLAN) ]; then \
-		$(OPENROAD_EXE) -gui $(DB_FLOORPLAN); \
-	else \
-		$(OPENROAD_EXE) -gui; \
-	fi
+	$(OPENROAD_EXE) -gui; 
 
 # Wipe out intermediate results and system logs to reset the environment
 clean:
